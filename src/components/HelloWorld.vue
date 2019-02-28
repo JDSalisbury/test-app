@@ -15,7 +15,7 @@
     <div class="col-three">
       <h2>{{ origin5}}</h2>
       <h2>{{ origin6}}</h2>
-      <button id="combo-3">Create Character</button>
+      <button id="combo-3" @click="sendCharacter3()">Create Character</button>
     </div>
 
     <div class="btn">
@@ -64,7 +64,6 @@ export default {
       this.info = info.data;
       this.origin1 = info.data[0].origin;
       this.origin2 = info.data[1].origin;
-      console.log(this.info);
     },
     async showChoice2() {
       let config = {
@@ -83,7 +82,6 @@ export default {
       this.info2 = info.data;
       this.origin3 = info.data[0].origin;
       this.origin4 = info.data[1].origin;
-      console.log(this.info2);
     },
     async showChoice3() {
       let config = {
@@ -102,7 +100,12 @@ export default {
       this.info3 = info.data;
       this.origin5 = info.data[0].origin;
       this.origin6 = info.data[1].origin;
-      console.log(this.info3);
+    },
+    async sendCharacter3() {
+      console.log("----origin----");
+      console.log(this.info3[0]);
+      console.log("----origin----");
+      console.log(this.info3[1]);
     }
   }
 };
