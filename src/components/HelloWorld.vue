@@ -101,11 +101,40 @@ export default {
       this.origin5 = info.data[0].origin;
       this.origin6 = info.data[1].origin;
     },
-    async sendCharacter3() {
-      console.log("----origin----");
-      console.log(this.info3[0]);
-      console.log("----origin----");
-      console.log(this.info3[1]);
+    sendCharacter3() {
+      let data = {
+        name: "testname",
+        origin_primary: this.info3[0].origin,
+        origin_secondary: this.info3[1].origin,
+        ability_primary: this.info3[0].ability,
+        ability_secondary: this.info3[1].ability,
+        skill_primary: this.info3[0].skill,
+        skill_secondary: this.info3[1].skill,
+        bonus_primary: this.info3[0].bonus,
+        bonus_secondary: this.info3[1].bonus,
+        ac: this.info3[0].ac + this.info3[1].ac,
+        fort: this.info3[0].fort + this.info3[1].fort,
+        ref: this.info3[0].ref + this.info3[1].ref,
+        will: this.info3[0].will + this.info3[1].will,
+        defense_primary: this.info3[0].defense,
+        defense_secondary: this.info3[1].defense,
+        lvl_1_primary: this.info3[0].lvl_1,
+        lvl_1_secondary: this.info3[1].lvl_1,
+        lvl_2_or_6_primary: this.info3[0].lvl_2_or_6,
+        lvl_2_or_6_secondary: this.info3[1].lvl_2_or_6,
+        novice_primary: this.info3[0].novice,
+        novice_secondary: this.info3[1].novice,
+        utility_primary: this.info3[0].utility,
+        utility_secondary: this.info3[1].utility,
+        expert_primary: this.info3[0].expert,
+        expert_secondary: this.info3[1].expert,
+        random_skill: "5"
+      };
+
+      let uri = "http://0.0.0.0:8000/api/character/";
+      axios.post(uri, data).then(response => {
+        console.log(response);
+      });
     }
   }
 };
