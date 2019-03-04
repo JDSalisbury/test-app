@@ -1,21 +1,21 @@
 <template>
   <div class="hello">
     <div class="col-one">
-      <h2>{{ origin1}}</h2>
-      <h2>{{ origin2}}</h2>
-      <button id="combo-1" @click="sendCharacter1()">Create Character</button>
+      <h2>{{ origin1.origin }}</h2>
+      <h2>{{ origin2.origin }}</h2>
+      <button id="combo-1" @click="sendCharacter(origin1, origin2)">Create Character</button>
     </div>
 
     <div class="col-two">
-      <h2>{{ origin3}}</h2>
-      <h2>{{ origin4}}</h2>
-      <button id="combo-2" @click="sendCharacter2()">Create Character</button>
+      <h2>{{ origin3.origin}}</h2>
+      <h2>{{ origin4.origin}}</h2>
+      <button id="combo-2" @click="sendCharacter(origin3, origin4)">Create Character</button>
     </div>
 
     <div class="col-three">
-      <h2>{{ origin5}}</h2>
-      <h2>{{ origin6}}</h2>
-      <button id="combo-3" @click="sendCharacter3()">Create Character</button>
+      <h2>{{ origin5.origin}}</h2>
+      <h2>{{ origin6.origin}}</h2>
+      <button id="combo-3" @click="sendCharacter(origin5, origin6)">Create Character</button>
     </div>
 
     <div class="btn">
@@ -36,9 +36,6 @@ export default {
   },
   data() {
     return {
-      info: "",
-      info2: "",
-      info3: "",
       origin1: "",
       origin2: "",
       origin3: "",
@@ -62,9 +59,9 @@ export default {
         }
       );
 
-      this.info = info.data;
-      this.origin1 = info.data[0].origin;
-      this.origin2 = info.data[1].origin;
+      this.origin1 = info.data[0];
+      this.origin2 = info.data[1];
+      console.log(this.info);
     },
     async showChoice2() {
       let config = {
@@ -81,8 +78,8 @@ export default {
       );
 
       this.info2 = info.data;
-      this.origin3 = info.data[0].origin;
-      this.origin4 = info.data[1].origin;
+      this.origin3 = info.data[0];
+      this.origin4 = info.data[1];
     },
     async showChoice3() {
       let config = {
@@ -98,28 +95,11 @@ export default {
         }
       );
 
-      this.info3 = info.data;
-      this.origin5 = info.data[0].origin;
-      this.origin6 = info.data[1].origin;
+      this.origin5 = info.data[0];
+      this.origin6 = info.data[1];
     },
-    sendCharacter1() {
-      let data = createCharacter(this.info[0], this.info[1]);
-
-      let uri = "http://0.0.0.0:8000/api/character/";
-      axios.post(uri, data).then(response => {
-        console.log(response);
-      });
-    },
-    sendCharacter2() {
-      let data = createCharacter(this.info2[0], this.info2[1]);
-
-      let uri = "http://0.0.0.0:8000/api/character/";
-      axios.post(uri, data).then(response => {
-        console.log(response);
-      });
-    },
-    sendCharacter3() {
-      let data = createCharacter(this.info3[0], this.info3[1]);
+    sendCharacter(primary, secondary) {
+      let data = createCharacter(primary, secondary);
 
       let uri = "http://0.0.0.0:8000/api/character/";
       axios.post(uri, data).then(response => {
