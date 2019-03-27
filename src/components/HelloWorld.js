@@ -1,5 +1,16 @@
 export function createCharacter(primary, secondary) {
-  let randNum = Math.floor(Math.random() * 10) + 7;
+  let skill_list = [
+    "Acrobatics",
+    "Athletics",
+    "Conspiricy",
+    "Insight",
+    "Interaction",
+    "Mechanics",
+    "Nature",
+    "Perception",
+    "Science",
+    "Stealth"
+  ];
   let name_list = [
     "Seymour",
     "Sandridge",
@@ -44,7 +55,7 @@ export function createCharacter(primary, secondary) {
   ];
 
   var randName = name_list[Math.floor(Math.random() * name_list.length)];
-
+  var randSkill = skill_list[Math.floor(Math.random() * skill_list.length)];
   let char_data = {
     name: randName,
     origin_primary: primary.origin,
@@ -71,7 +82,7 @@ export function createCharacter(primary, secondary) {
     utility_secondary: secondary.utility,
     expert_primary: primary.expert,
     expert_secondary: secondary.expert,
-    random_skill: randNum
+    random_skill: randSkill
   };
   return char_data;
 }
