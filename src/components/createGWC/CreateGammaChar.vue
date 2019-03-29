@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="cgwc">
     <div class="col-one">
       <h2>{{ origin1.origin }}</h2>
       <h2>{{ origin2.origin }}</h2>
@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import { createCharacter } from "./HelloWorld";
+import { createCharacter } from "./createGWC";
 import axios from "axios";
 
 export default {
-  name: "HelloWorld",
+  name: "CreateGammaChar",
   props: {
     msg: String
   },
@@ -100,9 +100,14 @@ export default {
     },
     sendCharacter(primary, secondary) {
       let data = createCharacter(primary, secondary);
+      let config = {
+        headers: {
+          authorization: "token 37e41528a8ef2785554a6c39c89733562dec9760"
+        }
+      };
 
-      let uri = "http://0.0.0.0:8000/api/character/";
-      axios.post(uri, data).then(response => {
+      let url = "http://0.0.0.0:8000/api/character/";
+      axios.post(url, data, config).then(response => {
         console.log(response);
       });
     }
@@ -126,7 +131,7 @@ li {
 a {
   color: #42b983;
 }
-.hello {
+.cgwc {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
