@@ -102,7 +102,7 @@ export default {
       let data = createCharacter(primary, secondary);
       let config = {
         headers: {
-          authorization: "token 37e41528a8ef2785554a6c39c89733562dec9760"
+          authorization: "token cf8a091c69695c475cac41c1c858b56ec1963a9c"
         }
       };
 

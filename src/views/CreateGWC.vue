@@ -1,7 +1,7 @@
 <template>
   <div class="cgwc">
     <Navbar/>
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/fuse.png">
     <CGWC msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
