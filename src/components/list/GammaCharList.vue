@@ -2,22 +2,28 @@
   <div class="list">
     <div class="col-two">
       <button @click="showChoice1()">Show Chars</button>
-      <h2>Char 1</h2>
-      <h2>Char 2</h2>
+      <ul id="example-1">
+        <!-- eslint-disable-next-line -->
+        <li v-for="item in list">
+          <h4>{{ item.name }}</h4>
+          {{item.origin_primary +" "+ item.origin_secondary }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-
 export default {
   name: "GammaCharList",
   props: {
     msg: String
   },
   data() {
-    return {};
+    return {
+      list: []
+    };
   },
   methods: {
     async showChoice1() {
@@ -31,6 +37,8 @@ export default {
         .get("http://0.0.0.0:8000/api/character/", config)
         .then(response => {
           console.log(response);
+          this.list = response.data;
+          console.log(this.list);
         });
     }
   }
