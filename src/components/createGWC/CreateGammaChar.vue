@@ -27,6 +27,7 @@
 
 <script>
 import { createCharacter } from "./createGWC";
+import { Token } from "../../config/config";
 import axios from "axios";
 
 export default {
@@ -61,7 +62,6 @@ export default {
 
       this.origin1 = info.data[0];
       this.origin2 = info.data[1];
-      console.log(this.info);
     },
     async showChoice2() {
       let config = {
@@ -102,7 +102,7 @@ export default {
       let data = createCharacter(primary, secondary);
       let config = {
         headers: {
-          authorization: "token cf8a091c69695c475cac41c1c858b56ec1963a9c"
+          authorization: "token " + Token
         }
       };
 

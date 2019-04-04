@@ -4,9 +4,10 @@
       <button @click="showChoice1()">Show Chars</button>
       <ul id="example-1">
         <!-- eslint-disable-next-line -->
-        <li v-for="item in list">
-          <h4>{{ item.name }}</h4>
-          {{item.origin_primary +" "+ item.origin_secondary }}
+        <li v-for="char in list">
+          <h4>{{ char.name }}</h4>
+          {{char.origin_primary +" "+ char.origin_secondary }}
+          <button>Play {{char.name}}</button>
         </li>
       </ul>
     </div>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import { Token } from "../../config/config";
 import axios from "axios";
 export default {
   name: "GammaCharList",
@@ -30,7 +32,7 @@ export default {
       let config = {
         headers: {
           Accept: "application/json",
-          authorization: "token cf8a091c69695c475cac41c1c858b56ec1963a9c"
+          authorization: "token " + Token
         }
       };
       const info = await axios
