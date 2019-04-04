@@ -12,7 +12,7 @@
   text-align: center;
   color: #2c3e50;
 
-  margin-top: 5%;
+  margin-top: 3%;
 }
 #nav {
   padding: 30px;

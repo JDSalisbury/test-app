@@ -7,6 +7,7 @@
         <li v-for="char in list">
           <h4>{{ char.name }}</h4>
           {{char.origin_primary +" "+ char.origin_secondary }}
+          <br>
           <button>Play {{char.name}}</button>
         </li>
       </ul>
