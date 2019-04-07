@@ -1,10 +1,9 @@
 <template>
   <div class="list">
     <div class="col-two">
-      <button @click="showChoice1()">Show Chars</button>
       <ul id="example-1">
         <!-- eslint-disable-next-line -->
-        <li v-for="char in list">
+        <li v-for="char in allCharacters" :key="char.name">
           <h4>{{ char.name }}</h4>
           {{char.origin_primary +" "+ char.origin_secondary }}
           <br>
@@ -17,33 +16,17 @@
 
 <script>
 import { Token } from "../../config/config";
+import { mapGetters, mapActions } from "vuex";
+
 import axios from "axios";
 export default {
   name: "GammaCharList",
-  props: {
-    msg: String
-  },
-  data() {
-    return {
-      list: []
-    };
-  },
   methods: {
-    async showChoice1() {
-      let config = {
-        headers: {
-          Accept: "application/json",
-          authorization: "token " + Token
-        }
-      };
-      const info = await axios
-        .get("http://0.0.0.0:8000/api/character/", config)
-        .then(response => {
-          console.log(response);
-          this.list = response.data;
-          console.log(this.list);
-        });
-    }
+    ...mapActions(["fetchCharacters"])
+  },
+  computed: mapGetters(["allCharacters"]),
+  created() {
+    this.fetchCharacters();
   }
 };
 </script>
