@@ -3,9 +3,44 @@
     <Navbar/>
     <img alt="Vue logo" src="../assets/dogo.png">
     <h1>Charactersheet</h1>
-    <!-- <div v-for="char in oneCharacter" :key="char.id"></div> -->
-    <h4>{{ oneCharacter.name }}</h4>
-    <!-- {{char.origin_primary +" "+ char.origin_secondary }} -->
+    <h2>{{ oneCharacter.name }}</h2>
+    <form action="/action_page.php">
+      Name:
+      <br>
+      <input v-model="oneCharacter.name" type="text">
+      <br>Origin 1
+      <br>
+      <input readonly type="text" v-model="oneCharacter.origin_primary">
+      <br>
+      <br>AC
+      <input readonly type="number" v-model="oneCharacter.ac">
+      <br>FORT
+      <input readonly type="number" v-model="oneCharacter.fort">
+      <br>REF
+      <input readonly type="number" v-model="oneCharacter.ref">
+      <br>WILL
+      <input readonly type="number" v-model="oneCharacter.will">
+      <br>
+      <br>Origin 2
+      <br>
+      <input readonly type="text" v-model="oneCharacter.origin_secondary">
+      <br>Bonus 1
+      <br>
+      <input readonly type="text" v-model="oneCharacter.bonus_primary">
+      <br>Bonus 2
+      <br>
+      <input readonly type="text" v-model="oneCharacter.bonus_secondary">
+      <br>
+      <br>Novice
+      <br>
+      <textarea rows="5" cols="50" readonly v-model="oneCharacter.novice_primary"></textarea>
+      <br>
+      <br>
+      <textarea rows="5" cols="50" readonly v-model="oneCharacter.novice_secondary"></textarea>
+      <br>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
     <br>
   </div>
 </template>

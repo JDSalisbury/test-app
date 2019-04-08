@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const state = {
-  characters: [],
-  character: []
+  character: [],
+  characters: []
 };
 
 const getters = {
   allCharacters: state => state.characters,
-  oneCharacter: state => state.characters
+  oneCharacter: state => state.character
 };
 
 const actions = {

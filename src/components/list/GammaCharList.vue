@@ -2,7 +2,6 @@
   <div class="list">
     <div class="col-two">
       <ul id="example-1">
-        <!-- eslint-disable-next-line -->
         <li v-for="char in allCharacters" :key="char.id">
           <h4>{{ char.name }}</h4>
           {{char.origin_primary +" "+ char.origin_secondary }}
@@ -10,7 +9,7 @@
           <router-link v-bind:to="'/play/' + char.id ">
             <button>Play {{char.name}}</button>
           </router-link>
-          <button @click="deleteChar(char.id)">Delete {{char.name}}</button>
+          <button @click="deleteChar(char.id, char.name)">Delete {{char.name}}</button>
         </li>
       </ul>
     </div>
@@ -29,12 +28,17 @@ export default {
   },
   methods: {
     ...mapActions(["fetchCharacters", "deleteCharacter"]),
-    deleteChar(id) {
+    deleteChar(id, name) {
       let info = {
         id: id,
         key: this.getKey.key
       };
-      this.deleteCharacter(info);
+      const confirmDelete = confirm(
+        "Are you sure you want to delete " + name + "?"
+      );
+      if (confirmDelete === true) {
+        this.deleteCharacter(info);
+      }
     }
   },
   created() {
