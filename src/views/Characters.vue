@@ -1,9 +1,9 @@
 <template>
   <div class="character">
-    <Navbar/>
-    <img alt="Vue logo" src="../assets/blueFamiliar.png">
+    <Navbar />
+    <img alt="Vue logo" src="../assets/blueFamiliar.png" />
     <p>Characters</p>
-    <List/>
+    <List />
   </div>
 </template>
 

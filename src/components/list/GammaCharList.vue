@@ -4,12 +4,14 @@
       <ul id="example-1">
         <li v-for="char in allCharacters" :key="char.id">
           <h4>{{ char.name }}</h4>
-          {{char.origin_primary +" "+ char.origin_secondary }}
-          <br>
-          <router-link v-bind:to="'/play/' + char.id ">
-            <button>Play {{char.name}}</button>
+          {{ char.origin_primary + " " + char.origin_secondary }}
+          <br />
+          <router-link v-bind:to="'/play/' + char.id">
+            <button>Play {{ char.name }}</button>
           </router-link>
-          <button @click="deleteChar(char.id, char.name)">Delete {{char.name}}</button>
+          <button @click="deleteChar(char.id, char.name)">
+            Delete {{ char.name }}
+          </button>
         </li>
       </ul>
     </div>
@@ -19,7 +21,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import axios from "axios";
 export default {
   name: "GammaCharList",
   computed: {

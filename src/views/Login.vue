@@ -1,7 +1,7 @@
 <template>
   <div class="login">
-    <img alt="Vue logo" src="../assets/bugo.png">
-    <Login/>
+    <img alt="Vue logo" src="../assets/bugo.png" />
+    <Login />
   </div>
 </template>
 

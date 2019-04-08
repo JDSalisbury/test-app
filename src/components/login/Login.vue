@@ -1,22 +1,19 @@
-<<template>
+<template>
   <form @submit.prevent="handleSubmit()">
     <label>
       Email:
-      <input type="email" v-model="user.email"/>
+      <input type="email" v-model="user.email" />
     </label>
 
     <label>
       Password:
-      <input type="password" v-model="user.password"/>
+      <input type="password" v-model="user.password" />
     </label>
     <button type="submit">Submit</button>
   </form>
 </template>
 
 <script>
-import axios from "axios";
-import VueRouter from "vue-router";
-import Router from "../../router.js";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
