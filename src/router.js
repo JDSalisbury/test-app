@@ -4,6 +4,7 @@ import CreateGWC from "./views/CreateGWC.vue";
 import Login from "./views/Login.vue";
 import Home from "./views/Home.vue";
 import Play from "./views/Play.vue";
+import Characters from "./views/Characters.vue";
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
       component: Home
     },
     {
+      path: "/characters",
+      name: "characters",
+      component: Characters
+    },
+    {
       path: "/",
       name: "logout",
       component: Login
@@ -32,7 +38,7 @@ export default new Router({
       component: CreateGWC
     },
     {
-      path: "/play",
+      path: "/play/:id",
       name: "play",
       component: Play
     },

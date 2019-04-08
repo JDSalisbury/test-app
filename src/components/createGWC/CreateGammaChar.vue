@@ -27,14 +27,13 @@
 
 <script>
 import { createCharacter } from "./createGWC";
-import { Token } from "../../config/config";
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CreateGammaChar",
-  props: {
-    msg: String
-  },
+  computed: mapGetters(["getKey"]),
+
   data() {
     return {
       origin1: "",
@@ -102,7 +101,7 @@ export default {
       let data = createCharacter(primary, secondary);
       let config = {
         headers: {
-          authorization: "token " + Token
+          authorization: "token " + this.getKey.key
         }
       };
 

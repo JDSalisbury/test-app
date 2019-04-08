@@ -3,11 +3,14 @@
     <div class="col-two">
       <ul id="example-1">
         <!-- eslint-disable-next-line -->
-        <li v-for="char in allCharacters" :key="char.name">
+        <li v-for="char in allCharacters" :key="char.id">
           <h4>{{ char.name }}</h4>
           {{char.origin_primary +" "+ char.origin_secondary }}
           <br>
-          <button>Play {{char.name}}</button>
+          <router-link v-bind:to="'/play/' + char.id ">
+            <button>Play {{char.name}}</button>
+          </router-link>
+          <button @click="deleteChar(char.id)">Delete {{char.name}}</button>
         </li>
       </ul>
     </div>
@@ -15,23 +18,31 @@
 </template>
 
 <script>
-import { Token } from "../../config/config";
 import { mapGetters, mapActions } from "vuex";
 
 import axios from "axios";
 export default {
   name: "GammaCharList",
-  methods: {
-    ...mapActions(["fetchCharacters"])
+  computed: {
+    ...mapGetters(["getKey"]),
+    ...mapGetters(["allCharacters"])
   },
-  computed: mapGetters(["allCharacters"]),
+  methods: {
+    ...mapActions(["fetchCharacters", "deleteCharacter"]),
+    deleteChar(id) {
+      let info = {
+        id: id,
+        key: this.getKey.key
+      };
+      this.deleteCharacter(info);
+    }
+  },
   created() {
-    this.fetchCharacters();
+    this.fetchCharacters(this.getKey.key);
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 h3 {
   margin: 40px 0 0;
