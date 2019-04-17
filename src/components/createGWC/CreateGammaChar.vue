@@ -3,7 +3,7 @@
     <div class="col-one">
       <h2>{{ origin1.origin }}</h2>
       <h2>{{ origin2.origin }}</h2>
-      <button id="combo-1" @click="sendCharacter(origin1, origin2)">
+      <button id="combo-1" @click="createThisCharacter(origin1, origin2)">
         Create Character
       </button>
     </div>
@@ -11,7 +11,7 @@
     <div class="col-two">
       <h2>{{ origin3.origin }}</h2>
       <h2>{{ origin4.origin }}</h2>
-      <button id="combo-2" @click="sendCharacter(origin3, origin4)">
+      <button id="combo-2" @click="createThisCharacter(origin3, origin4)">
         Create Character
       </button>
     </div>
@@ -19,7 +19,7 @@
     <div class="col-three">
       <h2>{{ origin5.origin }}</h2>
       <h2>{{ origin6.origin }}</h2>
-      <button id="combo-3" @click="sendCharacter(origin5, origin6)">
+      <button id="combo-3" @click="createThisCharacter(origin5, origin6)">
         Create Character
       </button>
     </div>
@@ -60,7 +60,7 @@ export default {
         }
       };
       const info = await axios.get(
-        "http://0.0.0.0:8000/api/quickChar/",
+        "http://localhost:8000/api/quickChar/",
         config,
         {
           useCredentails: false
@@ -77,7 +77,7 @@ export default {
         }
       };
       const info = await axios.get(
-        "http://0.0.0.0:8000/api/quickChar/",
+        "http://localhost:8000/api/quickChar/",
         config,
         {
           useCredentails: false
@@ -95,7 +95,7 @@ export default {
         }
       };
       const info = await axios.get(
-        "http://0.0.0.0:8000/api/quickChar/",
+        "http://localhost:8000/api/quickChar/",
         config,
         {
           useCredentails: false
@@ -105,18 +105,30 @@ export default {
       this.origin5 = info.data[0];
       this.origin6 = info.data[1];
     },
-    sendCharacter(primary, secondary) {
-      let data = createCharacter(primary, secondary);
-      let config = {
-        headers: {
-          authorization: "token " + this.getKey.key
-        }
-      };
+    createThisCharacter(primary, secondary) {
+      const confirmCreate = confirm(
+        `Are you sure you want to create the ${primary.origin} ${
+          secondary.origin
+        }?!`
+      );
+      if (confirmCreate === true) {
+        let data = createCharacter(primary, secondary);
+        let config = {
+          headers: {
+            authorization: "token " + this.getKey.key
+          }
+        };
 
-      let url = "http://0.0.0.0:8000/api/character/";
-      axios.post(url, data, config).then(response => {
-        console.log(response);
-      });
+        let url = "http://localhost:8000/api/gammacharactersheet/";
+        axios.post(url, data, config).then(response => {
+          console.log(response);
+          alert(
+            `${response.data.name} the '${response.data.origin1_first} ${
+              response.data.origin2_second
+            }' has been created!`
+          );
+        });
+      }
     }
   }
 };

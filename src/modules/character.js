@@ -19,7 +19,7 @@ const actions = {
       }
     };
     await axios
-      .get("http://0.0.0.0:8000/api/character/", config)
+      .get("http://localhost:8000/api/gammacharactersheet/", config)
       .then(response => {
         console.log(response);
         commit("setCharacters", response.data);
@@ -34,7 +34,7 @@ const actions = {
     };
 
     await axios
-      .get(`http://0.0.0.0:8000/api/character/${info.id}/`, config)
+      .get(`http://localhost:8000/api/gammacharactersheet/${info.id}/`, config)
       .then(response => {
         console.log(response);
         commit("setCharacter", response.data);
@@ -47,7 +47,10 @@ const actions = {
         authorization: "token " + info.key
       }
     };
-    await axios.delete(`http://0.0.0.0:8000/api/character/${info.id}/`, config);
+    await axios.delete(
+      `http://localhost:8000/api/gammacharactersheet/${info.id}/`,
+      config
+    );
     commit("removeCharacter", info.id);
   }
 };

@@ -3,8 +3,8 @@
     <div class="col-two">
       <ul id="example-1">
         <li v-for="char in allCharacters" :key="char.id">
-          <h4>{{ char.name }}</h4>
-          {{ char.origin_primary + " " + char.origin_secondary }}
+          <h3>{{ char.name }}</h3>
+          {{ char.origin1_first + " " + char.origin2_second }}
           <br />
           <router-link v-bind:to="'/play/' + char.id">
             <button>Play {{ char.name }}</button>

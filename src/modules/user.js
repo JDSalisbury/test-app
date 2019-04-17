@@ -19,7 +19,7 @@ const getters = { getKey: state => state.userKey };
 
 const actions = {
   async login({ commit }, data) {
-    let url = "http://0.0.0.0:8000/rest-auth/login/";
+    let url = "http://localhost:8000/rest-auth/login/";
     let headers = {
       "X-CSRFToken": csrftoken,
       "Content-Type": "application/json"
