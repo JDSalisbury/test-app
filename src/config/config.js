@@ -7,6 +7,23 @@ export function diceRoll(numOfDice, sidesOnDice, mod) {
   return total + mod;
 }
 
+export function statsRoll() {
+  let total = [];
+  for (let i = 1; i <= 4; i++) {
+    total.push(Math.floor(Math.random() * 6 + 1));
+  }
+
+  var low = Math.min.apply(null, total);
+
+  total.splice(total.indexOf(low), 1);
+
+  return total.reduce((a, b) => a + b);
+}
+
+export function capString(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export function abilityModified(ability) {
   ability = ability - 10;
   ability = Math.floor(ability / 2);
@@ -18,6 +35,10 @@ export function setStartHP(con) {
   con = abilityModified(con);
   hp = con + 12;
   return hp;
+}
+
+export function setOverChargeMod(ocOne, ocTwo) {
+  return ocOne === "" || ocTwo === "" ? 8 : 4;
 }
 
 export function compareThreeSkills(skill1, skill2, skill3) {
@@ -87,27 +108,27 @@ export function abilityScores(prime, second) {
     abilities[second] = 16;
   }
   if (abilities.STR === 0) {
-    abilities.STR = diceRoll(3, 6, 0);
+    abilities.STR = statsRoll();
   }
 
   if (abilities.CON === 0) {
-    abilities.CON = diceRoll(3, 6, 0);
+    abilities.CON = statsRoll();
   }
 
   if (abilities.INT === 0) {
-    abilities.INT = diceRoll(3, 6, 0);
+    abilities.INT = statsRoll();
   }
 
   if (abilities.WIS === 0) {
-    abilities.WIS = diceRoll(3, 6, 0);
+    abilities.WIS = statsRoll();
   }
 
   if (abilities.DEX === 0) {
-    abilities.DEX = diceRoll(3, 6, 0);
+    abilities.DEX = statsRoll();
   }
 
   if (abilities.CHA === 0) {
-    abilities.CHA = diceRoll(3, 6, 0);
+    abilities.CHA = statsRoll();
   }
 
   return abilities;

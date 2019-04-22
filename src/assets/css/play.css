@@ -1,3 +1,82 @@
 #gamma-charactersheet {
+  height: 85vh;
   display: grid;
+  /* border: 1px solid red; */
+  grid-gap: 0.5rem;
+  grid-template-columns: 0.3fr 0.3fr 0.3fr 0.3fr 0.2fr 0.3fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    ".   si  hp   img bn ."
+    ".   ab  sv  in  . ."
+    ".   da  sk  gr  . ."
+    ".   ns  ns  wp .   ."
+    ".    .  .   .  .  .";
+}
+
+.char-image {
+  grid-area: img;
+  /* background-color: blue; */
+}
+
+.buttons {
+  grid-area: bn;
+  /* background-color: seashell; */
+}
+
+.soft-info {
+  grid-area: si;
+  /* background-color: orange; */
+  display: flex;
+}
+
+.abilities {
+  grid-area: ab;
+  /* background-color: purple; */
+  /* display: grid;
+  grid-template-columns: 1fr 4fr; */
+  display: flex;
+  border: 1px solid red;
+}
+.abilities input {
+  width: 20%;
+}
+.abilities .a-mod {
+}
+
+.saves {
+  grid-area: sv;
+  /* background-color: red; */
+  display: flex;
+}
+
+.def-abilities {
+  grid-area: da;
+  /* background-color: snow; */
+}
+
+.novice-skills {
+  grid-area: ns;
+  /* background-color: lightcyan; */
+}
+
+.health {
+  grid-area: hp;
+  /* background-color: grey; */
+}
+
+.skills {
+  grid-area: sk;
+  /* background-color: chartreuse; */
+}
+
+.inventory {
+  grid-area: in;
+}
+
+.gear {
+  grid-area: gr;
+}
+
+.weapons {
+  grid-area: wp;
 }

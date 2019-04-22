@@ -1,4 +1,7 @@
 import axios from "axios";
+import router from "../router";
+
+// import { stat } from "fs";
 function readCookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(";");
@@ -12,10 +15,14 @@ function readCookie(name) {
 const csrftoken = readCookie("csrftoken");
 
 const state = {
-  userKey: []
+  userKey: [],
+  error: ""
 };
 
-const getters = { getKey: state => state.userKey };
+const getters = {
+  getKey: state => state.userKey,
+  getError: state => state.error
+};
 
 const actions = {
   async login({ commit }, data) {
@@ -25,14 +32,24 @@ const actions = {
       "Content-Type": "application/json"
     };
 
-    axios.post(url, data, headers).then(response => {
-      commit("setUserKey", response.data);
-    });
+    axios
+      .post(url, data, headers)
+      .then(response => {
+        commit("setUserKey", response.data);
+        router.push("/home");
+      })
+      .catch(error => {
+        if (error) {
+          alert(error ? error.response.request.response : "");
+        }
+        commit("API_DATA_FAILURE", error.response);
+      });
   }
 };
 
 const mutations = {
-  setUserKey: (state, key) => (state.userKey = key)
+  setUserKey: (state, key) => (state.userKey = key),
+  API_DATA_FAILURE: (state, error) => (state.error = error)
 };
 
 export default {

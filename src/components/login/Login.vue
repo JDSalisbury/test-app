@@ -21,12 +21,19 @@ export default {
     return {
       user: {
         email: "",
-        password: ""
+        password: "",
+        error: ""
       }
     };
   },
-  computed: mapGetters(["getKey"]),
-
+  computed: {
+    ...mapGetters(["getKey", "getError"])
+  },
+  watch: {
+    getError() {
+      this.user.error = this.getError;
+    }
+  },
   methods: {
     ...mapActions(["login"]),
     handleSubmit() {
@@ -36,9 +43,6 @@ export default {
         password: this.user.password
       };
       this.login(data);
-      if (this.getKey.key !== "") {
-        this.$router.push("/home");
-      }
     }
   }
 };
