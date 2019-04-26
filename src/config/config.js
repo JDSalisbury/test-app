@@ -13,7 +13,7 @@ export function statsRoll() {
     total.push(Math.floor(Math.random() * 6 + 1));
   }
 
-  var low = Math.min.apply(null, total);
+  let low = Math.min.apply(null, total);
 
   total.splice(total.indexOf(low), 1);
 
