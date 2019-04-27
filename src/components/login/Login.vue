@@ -1,16 +1,37 @@
 <template>
-  <form @submit.prevent="handleSubmit()">
-    <label>
-      Email:
-      <input type="email" v-model="user.email" />
-    </label>
+  <v-form v-model="valid">
+    <v-container>
+      <v-layout justify-center row wrap>
+        <v-flex xs6 sm4>
+          <v-text-field
+            type="email"
+            v-model="user.email"
+            :rules="emailRules"
+            name="input-10-1"
+            counter
+            label="E-mail"
+            required
+          ></v-text-field>
+        </v-flex>
 
-    <label>
-      Password:
-      <input type="password" v-model="user.password" />
-    </label>
-    <button type="submit">Submit</button>
-  </form>
+        <v-flex xs6 sm4>
+          <v-text-field
+            v-model="user.password"
+            :append-icon="show1 ? 'visibility' : 'visibility_off'"
+            :type="show1 ? 'text' : 'password'"
+            :rules="[rules.required, rules.min]"
+            name="pass"
+            label="Password"
+            hint="Keep it secret, keep it safe..."
+            counter
+            @click:append="show1 = !show1"
+            required
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-btn @click="handleSubmit">submit</v-btn>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -19,6 +40,17 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
+      valid: false,
+
+      show1: false,
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ],
+      rules: {
+        required: value => !!value || "Required.",
+        min: v => v.length >= 4 || "Min 4 characters"
+      },
       user: {
         email: "",
         password: "",

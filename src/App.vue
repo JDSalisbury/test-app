@@ -1,5 +1,8 @@
 <template>
-  <v-app>
+  <div id="app">
+    <router-view/>
+  </div>
+  <!-- <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Vuetify</span>
@@ -14,7 +17,7 @@
     <v-content>
       <HelloWorld/>
     </v-content>
-  </v-app>
+  </v-app>-->
 </template>
 
 <script>
@@ -33,7 +36,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+ <style lang="scss">
 * {
   margin: 0;
   padding: 0;
