@@ -3,15 +3,24 @@
     <div class="col-two">
       <ul id="example-1">
         <li v-for="char in allCharacters" :key="char.id">
-          <h3>{{ char.name }}</h3>
-          {{ char.origin1_first + " " + char.origin2_second }}
-          <br />
-          <router-link v-bind:to="'/play/' + char.id">
-            <button>Play {{ char.name }}</button>
-          </router-link>
-          <button @click="deleteChar(char.id, char.name)">
-            Delete {{ char.name }}
-          </button>
+          <v-card>
+            <h3>{{ char.name }}</h3>
+            <v-avatar>
+              <img v-if="char.image !== null" :src="char.image" alt="pic">
+              <img v-else src="../../assets/d20.png" alt="altpic">
+            </v-avatar>
+            <br>
+            {{ char.origin1_first + " " + char.origin2_second }}
+            <br>
+            <router-link v-bind:to="'/play/' + char.id + '/'">
+              <v-btn small outline color="green">
+                <v-icon>play_arrow</v-icon>
+              </v-btn>
+            </router-link>
+            <v-btn small outline color="red" @click="deleteChar(char.id, char.name)">
+              <v-icon>cancel</v-icon>
+            </v-btn>
+          </v-card>
         </li>
       </ul>
     </div>
@@ -67,7 +76,9 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-
+li a {
+  text-decoration: none;
+}
 .col-two {
   grid-column: 2/3;
 }

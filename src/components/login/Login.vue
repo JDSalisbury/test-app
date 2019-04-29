@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid">
+  <v-form @submit.prevent="handleSubmit">
     <v-container>
       <v-layout justify-center row wrap>
         <v-flex xs6 sm4>
@@ -29,7 +29,7 @@
           ></v-text-field>
         </v-flex>
       </v-layout>
-      <v-btn @click="handleSubmit">submit</v-btn>
+      <v-btn type="submit">submit</v-btn>
     </v-container>
   </v-form>
 </template>
@@ -40,8 +40,6 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      valid: false,
-
       show1: false,
       emailRules: [
         v => !!v || "E-mail is required",

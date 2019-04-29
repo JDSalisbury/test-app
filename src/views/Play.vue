@@ -7,10 +7,10 @@
           <img
             v-if="oneCharacter.image !== null"
             style="height:200px"
-            v-bind:src="oneCharacter.image"
-            alt
+            :src="oneCharacter.image"
+            alt="pic"
           >
-          <img v-else alt="Vue logo" src="../assets/dogo.png">
+          <!-- <img v-else alt="Vue logo" src="../assets/dogo.png"> -->
         </div>
         <div class="soft-info">
           <div>
