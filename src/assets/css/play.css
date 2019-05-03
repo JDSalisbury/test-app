@@ -3,18 +3,18 @@
   display: grid;
   /* border: 1px solid red; */
   grid-gap: 0.5rem;
-  grid-template-columns: 0.3fr 0.3fr 0.3fr 0.3fr 0.2fr 0.3fr;
+  grid-template-columns: 0.1fr 0.3fr 0.3fr 0.2fr 0.1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    ".   si  hp   img bn ."
-    ".   ab  sv  in  . ."
-    ".   da  sk  gr  . ."
-    ".   ns  ns  wp .   ."
-    ".    .  .   .  .  .";
+    ".   si  da   da   ."
+    ".   si  ns   ns  ."
+    ".   si  ns  ns ."
+    ".   si  sv  .    ."
+    ".   si  sk   bn    .";
 }
 
 .char-image {
-  grid-area: img;
+  grid-area: ig;
   /* background-color: blue; */
 }
 
@@ -35,7 +35,7 @@
   /* display: grid;
   grid-template-columns: 1fr 4fr; */
   display: flex;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 .abilities input {
   width: 20%;
@@ -51,8 +51,13 @@
 
 .def-abilities {
   grid-area: da;
+
   /* background-color: snow; */
 }
+/* .defenses {
+  display: flex;
+  flex-direction: column;
+} */
 
 .novice-skills {
   grid-area: ns;
@@ -79,4 +84,11 @@
 
 .weapons {
   grid-area: wp;
+}
+
+.v-messages__message {
+  font-size: 14px !important;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
 }
