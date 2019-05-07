@@ -24,17 +24,25 @@ export function capString(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function abilityModified(ability) {
+export function abilityMod(ability) {
   ability = ability - 10;
   ability = Math.floor(ability / 2);
-  return ability;
+  return ability === 0 ? "0" : ability;
 }
 
 export function setStartHP(con) {
   let hp = 0;
-  con = abilityModified(con);
+  con = abilityMod(con);
   hp = con + 12;
   return hp;
+}
+
+export function compareTwo(a, b) {
+  return a >= b ? a : b;
+}
+
+export function addToCompareTwo(a, b, c) {
+  return compareTwo(a, b) + c;
 }
 
 export function setOverChargeMod(ocOne, ocTwo) {
@@ -151,19 +159,19 @@ export function overCharge(ob1, ob2) {
 // let addWill = 0;
 
 // if (str > con) {
-//   addFort = abilityModified(str);
+//   addFort = abilityMod(str);
 // } else {
-//   addFort = abilityModified(con);
+//   addFort = abilityMod(con);
 // }
 
 // if (dex > int) {
-//   addRef = abilityModified(dex);
+//   addRef = abilityMod(dex);
 // } else {
-//   addRef = abilityModified(int);
+//   addRef = abilityMod(int);
 // }
 
 // if (wis > cha) {
-//   addWill = abilityModified(wis);
+//   addWill = abilityMod(wis);
 // } else {
-//   addWill = abilityModified(cha);
+//   addWill = abilityMod(cha);
 // }

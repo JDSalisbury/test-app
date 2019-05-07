@@ -7,7 +7,7 @@ const state = {
 
 const getters = {
   allCharacters: state => state.characters,
-  oneCharacter: state => state.character
+  char: state => state.character
 };
 
 const actions = {

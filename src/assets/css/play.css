@@ -71,6 +71,8 @@
 
 .skills {
   grid-area: sk;
+  display: flex;
+  justify-content: space-around;
   /* background-color: chartreuse; */
 }
 
@@ -91,4 +93,8 @@
   margin-bottom: 10px;
   color: white;
   font-weight: bold;
+}
+
+#hp {
+  margin-left: 5px;
 }

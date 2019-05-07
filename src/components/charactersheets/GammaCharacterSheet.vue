@@ -7,9 +7,9 @@
             <v-toolbar color="pink" dark>
               <v-text-field
                 persistent-hint="true"
-                :hint="originHint(oneCharacter.origin1_first, oneCharacter.origin2_second)"
+                :hint="originHint(char.origin1_first, char.origin2_second)"
                 class="headline"
-                v-model="oneCharacter.name"
+                v-model="char.name"
                 required
               ></v-text-field>
             </v-toolbar>
@@ -20,8 +20,8 @@
                     <v-card color="blue-grey darken-3" class="white--text">
                       <v-card-title>
                         <v-img
-                          v-if="oneCharacter.image !== null"
-                          :src="oneCharacter.image"
+                          v-if="char.image !== null"
+                          :src="char.image"
                           max-height="200px"
                           contain
                           alt="pic"
@@ -35,16 +35,16 @@
                         ></v-img>
                       </v-card-title>
                       <v-card-actions>
-                        <v-text-field dark v-model="oneCharacter.lvl" label="LVL" required></v-text-field>
+                        <v-text-field dark v-model="char.lvl" label="LVL" required></v-text-field>
                       </v-card-actions>
                     </v-card>
                   </v-flex>
 
                   <v-flex xs12>
                     <v-card color="cyan darken-2" class="white--text">
-                      <v-layout row>
+                      <v-layout id="hp" row>
                         <v-flex xs4>
-                          <v-text-field required label="HP" v-model="oneCharacter.hp"></v-text-field>
+                          <v-text-field required label="HP" v-model="char.hp"></v-text-field>
                         </v-flex>
                         <v-flex xs4>
                           <v-text-field required label="Temp"></v-text-field>
@@ -54,79 +54,56 @@
 
                       <v-card-actions class="pa-3">
                         <div>
-                          <v-text-field
-                            label="STR"
-                            readonly
-                            type="number"
-                            v-model="oneCharacter.strength"
-                            size="4"
-                          ></v-text-field>
-                          <span>{{abilityModified(oneCharacter.strength)}}</span>
+                          <Ability label="STR" :vModel="char.strength"/>
                         </div>
                         <div>
-                          <v-text-field
-                            label="CON"
-                            readonly
-                            type="number"
-                            v-model="oneCharacter.constitution"
-                          ></v-text-field>
-                          <span>{{abilityModified(oneCharacter.constitution)}}</span>
+                          <Ability label="CON" :vModel="char.constitution"/>
                         </div>
                         <div>
-                          <v-text-field
-                            label="DEX"
-                            readonly
-                            type="number"
-                            v-model="oneCharacter.dexterity"
-                          ></v-text-field>
-                          <span>{{abilityModified(oneCharacter.dexterity)}}</span>
+                          <Ability label="DEX" :vModel="char.dexterity"/>
                         </div>
                         <div>
-                          <v-text-field
-                            label="INT"
-                            readonly
-                            type="number"
-                            v-model="oneCharacter.intelligence"
-                          ></v-text-field>
-                          <span>{{abilityModified(oneCharacter.intelligence)}}</span>
+                          <Ability label="INT" :vModel="char.intelligence"/>
                         </div>
                         <div>
-                          <v-text-field
-                            label="WIS"
-                            readonly
-                            type="number"
-                            v-model="oneCharacter.wisdom"
-                          ></v-text-field>
-                          <span>{{abilityModified(oneCharacter.wisdom)}}</span>
+                          <Ability label="WIS" :vModel="char.wisdom"/>
                         </div>
                         <div>
-                          <v-text-field
-                            label="CHA"
-                            readonly
-                            type="number"
-                            v-model="oneCharacter.charisma"
-                          ></v-text-field>
-                          <span>{{abilityModified(oneCharacter.charisma)}}</span>
+                          <Ability label="CHA" :vModel="char.charisma"/>
                         </div>
                       </v-card-actions>
                       <v-card-actions>
                         <div class="saves">
                           <div>
                             <div>
-                              AC:
-                              <input readonly type="number" v-model="oneCharacter.ac">
-                            </div>
-                            <div>
-                              FORT:
-                              <input readonly type="number" v-model="oneCharacter.fort">
-                            </div>
-                            <div>
-                              REF:
-                              <input readonly type="number" v-model="oneCharacter.ref">
-                            </div>
-                            <div>
-                              WILL:
-                              <input readonly type="number" v-model="oneCharacter.will">
+                              <Chip
+                                color="green"
+                                textColor="white"
+                                avatarClassColor="green darken-4"
+                                text="AC"
+                                :avatar="addToCompareTwo(abilityMod(char.dexterity), abilityMod(char.intelligence), char.ac + char.lvl)"
+                              />
+                              <Chip
+                                color="green"
+                                textColor="white"
+                                text="FORT"
+                                avatarClassColor="green darken-4"
+                                :avatar="addToCompareTwo(abilityMod(char.strength), abilityMod(char.constitution), char.fort + char.lvl)"
+                              />
+                              <Chip
+                                color="green"
+                                textColor="white"
+                                text="REF"
+                                avatarClassColor="green darken-4"
+                                :avatar="addToCompareTwo(abilityMod(char.dexterity), abilityMod(char.intelligence), char.ref + char.lvl)"
+                              />
+                              <Chip
+                                color="green"
+                                textColor="white"
+                                text="WILL"
+                                avatarClassColor="green darken-4"
+                                :avatar="addToCompareTwo(abilityMod(char.wisdom), abilityMod(char.charisma), char.will + char.lvl)"
+                              />
                             </div>
                           </div>
                         </div>
@@ -134,56 +111,50 @@
                     </v-card>
                   </v-flex>
 
-                  <v-flex xs12>
+                  <v-flex>
                     <v-card color="purple" class="white--text">
-                      <v-layout row>
-                        <v-flex xs12>
-                          <v-card-title primary-title>
-                            <div class="skills">
+                      <v-layout class="skills">
+                        <div>
+                          <v-card-title>
+                            <v-card color="purple darken-2" class="white--text pa-2">
                               <h4>Skills</h4>
-                              <span
-                                v-if="oneCharacter.skill1 !== ''"
-                              >{{capString(oneCharacter.skill1)}}</span>
-                              <span
-                                v-if="oneCharacter.skill1_mod !== 0"
-                              >{{" "}}{{ oneCharacter.skill1_mod}}</span>
+                              <span v-if="char.skill1 !== ''">{{capString(char.skill1)}}</span>
+                              <span v-if="char.skill1_mod !== 0">{{" "}}{{ char.skill1_mod}}</span>
                               <br>
-                              <span
-                                v-if="oneCharacter.skill2 !== ''"
-                              >{{capString(oneCharacter.skill2)}}</span>
-                              <span
-                                v-if="oneCharacter.skill2_mod !== 0"
-                              >{{" "}}{{ oneCharacter.skill2_mod}}</span>
+                              <span v-if="char.skill2 !== ''">{{capString(char.skill2)}}</span>
+                              <span v-if="char.skill2_mod !== 0">{{" "}}{{ char.skill2_mod}}</span>
                               <br>
-                              <span
-                                v-if="oneCharacter.skill3 !== ''"
-                              >{{capString(oneCharacter.skill3)}}</span>
-                              <span
-                                v-if="oneCharacter.skill3_mod !== 0"
-                              >{{" "}}{{ oneCharacter.skill3_mod}}</span>
+                              <span v-if="char.skill3 !== ''">{{capString(char.skill3)}}</span>
+                              <span v-if="char.skill3_mod !== 0">{{" "}}{{ char.skill3_mod}}</span>
+                            </v-card>
+                          </v-card-title>
+                        </div>
+                        <div>
+                          <v-card-title>
+                            <v-card color="purple darken-2" class="white--text pa-2">
                               <h4>OverCharge</h4>
                               <span
-                                v-if="oneCharacter.overcharge_bonus1 !== ''"
-                              >{{capString(oneCharacter.overcharge_bonus1)}}</span>
+                                v-if="char.overcharge_bonus1 !== ''"
+                              >{{capString(char.overcharge_bonus1)}}</span>
                               <span
-                                v-if="oneCharacter.overcharge_bonus1 !== ''"
-                              >{{" "}}{{ setOverChargeMod(oneCharacter.overcharge_bonus1, oneCharacter.overcharge_bonus2)}}</span>
-
+                                v-if="char.overcharge_bonus1 !== ''"
+                              >{{" "}}{{ setOverChargeMod(char.overcharge_bonus1, char.overcharge_bonus2)}}</span>
+                              <br>
                               <span
-                                v-if="oneCharacter.overcharge_bonus2 !== ''"
-                              >{{capString(oneCharacter.overcharge_bonus2)}}</span>
+                                v-if="char.overcharge_bonus2 !== ''"
+                              >{{capString(char.overcharge_bonus2)}}</span>
                               <span
-                                v-if="oneCharacter.overcharge_bonus2 !== ''"
-                              >{{" "}}{{ setOverChargeMod(oneCharacter.overcharge_bonus1, oneCharacter.overcharge_bonus2)}}</span>
-                            </div>
+                                v-if="char.overcharge_bonus2 !== ''"
+                              >{{" "}}{{ setOverChargeMod(char.overcharge_bonus1, char.overcharge_bonus2)}}</span>
+                            </v-card>
                           </v-card-title>
-                        </v-flex>
+                        </div>
                       </v-layout>
                       <v-divider light></v-divider>
-                      <v-card-actions class="pa-3">
+                      <v-card-actions class="pa-1">
                         <UploadImage/>
 
-                        <div class="buttons">
+                        <div class="buttons pa-1">
                           <input type="submit" value="Submit">
                         </div>
                       </v-card-actions>
@@ -202,9 +173,9 @@
                 <h4>Novice</h4>
               </v-card-title>
               <div>
-                <textarea rows="5" cols="50" readonly v-model="oneCharacter.novice_1"></textarea>
+                <textarea rows="5" cols="50" readonly v-model="char.novice_1"></textarea>
                 <v-divider light></v-divider>
-                <textarea rows="5" cols="50" readonly v-model="oneCharacter.novice_2"></textarea>
+                <textarea rows="5" cols="50" readonly v-model="char.novice_2"></textarea>
               </div>
             </v-container>
           </v-card>
@@ -213,59 +184,61 @@
         <div class="def-abilities">
           <v-card>
             <v-container>
-              <v-card-title>Defense Abilities</v-card-title>
+              <v-card-title>
+                <h4>Defense Abilities</h4>
+              </v-card-title>
               <div class="defenses">
                 <textarea
-                  v-if="oneCharacter.defense1.length > 8"
+                  v-if="char.defense1.length > 8"
                   cols="50"
                   readonly
-                  v-model="oneCharacter.defense1"
+                  v-model="char.defense1"
                 ></textarea>
                 <v-divider light></v-divider>
 
                 <textarea
-                  v-if="oneCharacter.defense2.length > 8"
+                  v-if="char.defense2.length > 8"
                   cols="50"
                   readonly
-                  v-model="oneCharacter.defense2"
+                  v-model="char.defense2"
                 ></textarea>
                 <v-divider light></v-divider>
 
                 <textarea
-                  v-if="oneCharacter.defense_ability1 !== ''"
+                  v-if="char.defense_ability1 !== ''"
                   cols="50"
                   readonly
-                  v-model="oneCharacter.defense_ability1"
+                  v-model="char.defense_ability1"
                 ></textarea>
                 <v-divider light></v-divider>
 
                 <textarea
-                  v-if="oneCharacter.defense_ability2 !== ''"
+                  v-if="char.defense_ability2 !== ''"
                   cols="50"
                   readonly
-                  v-model="oneCharacter.defense_ability2"
+                  v-model="char.defense_ability2"
                 ></textarea>
               </div>
             </v-container>
           </v-card>
         </div>
 
-        <!-- <div v-if="oneCharacter.inventory_items !== null" class="inventory">
+        <!-- <div v-if="char.inventory_items !== null" class="inventory">
           <h4>Inventory Items</h4>
           <textarea
-            v-model="oneCharacter.inventory_items[0].name"
+            v-model="char.inventory_items[0].name"
             name="inventory"
             cols="30"
             rows="10"
           ></textarea>
         </div>
-        <div v-if="oneCharacter.gear !== null" class="gear">
+        <div v-if="char.gear !== null" class="gear">
           <h4>Gear</h4>
-          <textarea v-model="oneCharacter.gear[0].name" name="gear" cols="30" rows="10"></textarea>
+          <textarea v-model="char.gear[0].name" name="gear" cols="30" rows="10"></textarea>
         </div>
-        <div v-if="oneCharacter.weapons !== null" class="weapons">
+        <div v-if="char.weapons !== null" class="weapons">
           <h4>Weapons</h4>
-          <textarea v-model="oneCharacter.weapons[0].name" name="weapons" cols="30" rows="10"></textarea>
+          <textarea v-model="char.weapons[0].name" name="weapons" cols="30" rows="10"></textarea>
         </div>-->
       </div>
     </form>
@@ -275,10 +248,13 @@
 import { mapGetters, mapActions } from "vuex";
 import {
   capString,
-  abilityModified,
-  setOverChargeMod
+  abilityMod,
+  setOverChargeMod,
+  addToCompareTwo
 } from "../../config/config.js";
 import UploadImage from "../charactersheets/ImageUpload";
+import Chip from "../vuetify/chip";
+import Ability from "../vuetify/ability";
 //(Ability Score – 10) / 2
 
 export default {
@@ -290,17 +266,20 @@ export default {
   },
   name: "play",
   components: {
-    UploadImage
+    UploadImage,
+    Chip,
+    Ability
   },
   computed: {
     ...mapGetters(["getKey"]),
-    ...mapGetters(["oneCharacter"])
+    ...mapGetters(["char"])
   },
   methods: {
     ...mapActions(["fetchCharacter"]),
     capString,
-    abilityModified,
+    abilityMod,
     setOverChargeMod,
+    addToCompareTwo,
     originHint(first, second) {
       return first + " " + second;
     }
