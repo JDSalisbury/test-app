@@ -6,11 +6,18 @@
   grid-template-columns: 0.1fr 0.3fr 0.3fr 0.2fr 0.1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    ".   si  da   da   ."
-    ".   si  ns   ns  ."
-    ".   si  ns  ns ."
-    ".   si  sv  .    ."
-    ".   si  sk   bn    .";
+    ".   si  tb  tb  ."
+    ".   si  tb  tb  ."
+    ".   si  tb  tb  ."
+    ".   si   .   .  ."
+    ".   si   .   .  .";
+}
+.play {
+  margin-top: 5px;
+}
+
+.tabs {
+  grid-area: tb;
 }
 
 .char-image {
@@ -25,8 +32,6 @@
 
 .soft-info {
   grid-area: si;
-  /* background-color: orange; */
-  display: flex;
 }
 
 .abilities {

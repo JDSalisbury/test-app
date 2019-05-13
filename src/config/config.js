@@ -42,7 +42,7 @@ export function compareTwo(a, b) {
 }
 
 export function addToCompareTwo(a, b, c) {
-  return compareTwo(a, b) + c;
+  return Number(compareTwo(a, b) + c);
 }
 
 export function setOverChargeMod(ocOne, ocTwo) {

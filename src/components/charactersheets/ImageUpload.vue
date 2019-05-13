@@ -1,57 +1,60 @@
 <template>
   <v-content>
     <v-container fluid>
-      <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-        <img :src="imageUrl" height="150" v-if="imageUrl">
-        <v-text-field
-          label="Select Image"
-          @click="pickFile"
-          v-model="imageName"
-          prepend-icon="attach_file"
-        ></v-text-field>
-        <input
-          type="file"
-          style="display: none"
-          ref="image"
-          accept="image/*"
-          @change="onFilePicked"
-        >
-      </v-flex>
-      <v-dialog v-model="dialog" max-width="290">
-        <v-card>
-          <v-card-title class="headline">Hello World!</v-card-title>
-          <v-card-text>
-            Image Upload Script in VUE JS
-            <hr>Yubaraj Shrestha
-            <br>http://yubarajshrestha.com.np/
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="green darken-1" flat="flat" @click.native="dialog = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <form @submit.prevent="handleSubmit">
+        <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+          <img :src="imageUrl" height="150" v-if="imageUrl">
+          <v-text-field
+            label="Select Image"
+            @click="pickFile"
+            v-model="imageName"
+            prepend-icon="attach_file"
+          ></v-text-field>
+          <input
+            type="file"
+            style="display: none"
+            ref="image"
+            accept="image/*"
+            @change="onFilePicked"
+          >
+        </v-flex>
+        <div class="buttons pa-1">
+          <input type="submit" value="Upload Image">
+        </div>
+      </form>
     </v-container>
   </v-content>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
-  data: () => ({
-    title: "Image Upload",
-    dialog: false,
-    imageName: "",
-    imageUrl: "",
-    imageFile: ""
-  }),
+  data() {
+    return {
+      title: "Image Upload",
+      dialog: false,
+      imageName: "",
+      imageUrl: "",
+      imageFile: "",
+      id: this.$route.params.id,
+      file: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["getKey"])
+  },
 
   methods: {
+    ...mapActions(["updateCharacter"]),
+
     pickFile() {
       this.$refs.image.click();
     },
 
     onFilePicked(e) {
       const files = e.target.files;
+      this.file = files;
+      console.log(files);
       if (files[0] !== undefined) {
         this.imageName = files[0].name;
         if (this.imageName.lastIndexOf(".") <= 0) {
@@ -68,6 +71,17 @@ export default {
         this.imageFile = "";
         this.imageUrl = "";
       }
+    },
+    handleSubmit() {
+      const info = {
+        key: this.getKey.key,
+        id: this.id,
+        data: {
+          image: this.file[0]
+        }
+      };
+      console.log(info);
+      this.updateCharacter(info);
     }
   }
 };

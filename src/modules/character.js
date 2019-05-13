@@ -52,6 +52,28 @@ const actions = {
       config
     );
     commit("removeCharacter", info.id);
+  },
+  async updateCharacter({ commit }, info) {
+    let callBack;
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key,
+        ContentType: "multipart/form-data"
+      }
+    };
+    await axios
+      .put(
+        `http://localhost:8000/api/gammacharactersheet/${info.id}/`,
+        info.data,
+        config
+      )
+      .then(response => {
+        console.log(response);
+        callBack = response;
+        commit("editCharacter", info.id);
+      });
+    return callBack;
   }
 };
 
@@ -61,7 +83,8 @@ const mutations = {
   removeCharacter: (state, id) =>
     (state.characters = state.characters.filter(
       characters => characters.id !== id
-    ))
+    )),
+  editCharacter: (state, character) => (state.character = character)
 };
 
 export default {
