@@ -18,22 +18,7 @@
                 <v-layout row wrap>
                   <v-flex xs12>
                     <v-card color="blue-grey lighten-1">
-                      <v-card-title>
-                        <v-img
-                          v-if="char.image !== null"
-                          :src="char.image"
-                          max-height="200px"
-                          contain
-                          alt="pic"
-                        ></v-img>
-                        <v-img
-                          v-else
-                          max-height="200px"
-                          contain
-                          alt="Vue logo"
-                          :src="require('../../assets/dogo.png')"
-                        ></v-img>
-                      </v-card-title>
+                      <ProfileImage :img="char.image"/>
                       <v-card-actions>
                         <v-text-field dark v-model="char.lvl" label="LVL" required></v-text-field>
                       </v-card-actions>
@@ -268,6 +253,7 @@ import {
   addToCompareTwo
 } from "../../config/config.js";
 import UploadImage from "../charactersheets/ImageUpload";
+import ProfileImage from "../charactersheets/components/ProfileImage";
 import Chip from "../vuetify/chip";
 import Ability from "../vuetify/ability";
 //(Ability Score – 10) / 2
@@ -285,7 +271,8 @@ export default {
   components: {
     UploadImage,
     Chip,
-    Ability
+    Ability,
+    ProfileImage
   },
   computed: {
     ...mapGetters(["getKey"]),
