@@ -19,6 +19,7 @@
                   <v-flex xs12>
                     <v-card color="blue-grey lighten-1">
                       <ProfileImage :img="char.image"/>
+
                       <v-card-actions>
                         <v-text-field dark v-model="char.lvl" label="LVL" required></v-text-field>
                       </v-card-actions>
@@ -152,8 +153,8 @@
                       <v-divider light></v-divider>
                       <v-card-actions class="pa-1">
                         <UploadImage/>
-                        <img :src="image" alt>
-                        <input v-on:change="onFileChange" type="file">
+                        <!-- <img :src="image" alt>
+                        <input v-on:change="onFileChange" type="file">-->
                         <div class="buttons pa-1">
                           <input type="submit" value="Submit">
                         </div>
@@ -172,51 +173,17 @@
               <v-tab ripple :key="defAbilities">Defense Abilities</v-tab>
               <v-tab-item>
                 <v-card :key="novice" flat>
-                  <v-card-text>
-                    <div>
-                      <textarea rows="5" cols="50" readonly v-model="char.novice_1"></textarea>
-                      <v-divider light></v-divider>
-                      <textarea rows="5" cols="50" readonly v-model="char.novice_2"></textarea>
-                    </div>
-                  </v-card-text>
+                  <NoviceTabCard :novOne="char.novice_1" :novTwo="char.novice_2"/>
                 </v-card>
               </v-tab-item>
               <v-tab-item>
                 <v-card :key="defAbilities" flat>
-                  <v-card-text>
-                    <div class="defenses">
-                      <textarea
-                        v-if="char.defense1.length > 8"
-                        cols="50"
-                        readonly
-                        v-model="char.defense1"
-                      ></textarea>
-                      <v-divider light></v-divider>
-
-                      <textarea
-                        v-if="char.defense2.length > 8"
-                        cols="50"
-                        readonly
-                        v-model="char.defense2"
-                      ></textarea>
-                      <v-divider light></v-divider>
-
-                      <textarea
-                        v-if="char.defense_ability1 !== ''"
-                        cols="50"
-                        readonly
-                        v-model="char.defense_ability1"
-                      ></textarea>
-                      <v-divider light></v-divider>
-
-                      <textarea
-                        v-if="char.defense_ability2 !== ''"
-                        cols="50"
-                        readonly
-                        v-model="char.defense_ability2"
-                      ></textarea>
-                    </div>
-                  </v-card-text>
+                  <DefenseTabCard
+                    :def="char.defense1"
+                    :defTwo="char.defense2"
+                    :defAb="char.defense_ability1"
+                    :defAbTwo="char.defense_ability2"
+                  />
                 </v-card>
               </v-tab-item>
             </v-tabs>
@@ -254,6 +221,8 @@ import {
 } from "../../config/config.js";
 import UploadImage from "../charactersheets/ImageUpload";
 import ProfileImage from "../charactersheets/components/ProfileImage";
+import DefenseTabCard from "../charactersheets/components/DefenseTabCard";
+import NoviceTabCard from "../charactersheets/components/NoviceAbilitiesTabCard";
 import Chip from "../vuetify/chip";
 import Ability from "../vuetify/ability";
 //(Ability Score – 10) / 2
@@ -272,7 +241,9 @@ export default {
     UploadImage,
     Chip,
     Ability,
-    ProfileImage
+    ProfileImage,
+    DefenseTabCard,
+    NoviceTabCard
   },
   computed: {
     ...mapGetters(["getKey"]),

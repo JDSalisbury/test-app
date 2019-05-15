@@ -16,6 +16,3 @@ export default {
   props: ["img"]
 };
 </script>
-
-<style lang="scss" scoped>
-</style>
