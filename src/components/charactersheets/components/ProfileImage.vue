@@ -1,6 +1,12 @@
 <template>
   <v-card-title>
-    <v-img v-if="img !== null" :src="img" max-height="200px" contain alt="pic"></v-img>
+    <v-img
+      v-if="img !== null"
+      :src="img"
+      max-height="200px"
+      contain
+      alt="pic"
+    ></v-img>
     <v-img
       v-else
       max-height="200px"

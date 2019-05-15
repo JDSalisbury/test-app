@@ -1,7 +1,7 @@
 <template>
   <div class="about">
-    <Navbar/>
-    <GammaSheet/>
+    <Navbar />
+    <GammaSheet />
   </div>
 </template>
 <script>

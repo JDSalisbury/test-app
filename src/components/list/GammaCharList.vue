@@ -6,18 +6,23 @@
           <v-card>
             <h3>{{ char.name }}</h3>
             <v-avatar>
-              <img v-if="char.image !== null" :src="char.image" alt="pic">
-              <img v-else src="../../assets/d20.png" alt="altpic">
+              <img v-if="char.image !== null" :src="char.image" alt="pic" />
+              <img v-else src="../../assets/d20.png" alt="altpic" />
             </v-avatar>
-            <br>
+            <br />
             {{ char.origin1_first + " " + char.origin2_second }}
-            <br>
+            <br />
             <router-link v-bind:to="'/play/' + char.id + '/'">
               <v-btn small outline color="green">
                 <v-icon>play_arrow</v-icon>
               </v-btn>
             </router-link>
-            <v-btn small outline color="red" @click="deleteChar(char.id, char.name)">
+            <v-btn
+              small
+              outline
+              color="red"
+              @click="deleteChar(char.id, char.name)"
+            >
               <v-icon>cancel</v-icon>
             </v-btn>
           </v-card>

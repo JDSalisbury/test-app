@@ -2,8 +2,11 @@
   <v-content>
     <v-container fluid>
       <form @submit.prevent="handleSubmit">
-        <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-          <img :src="imageUrl" height="150" v-if="imageUrl">
+        <v-flex
+          xs12
+          class="text-xs-center text-sm-center text-md-center text-lg-center"
+        >
+          <img :src="imageUrl" height="150" v-if="imageUrl" />
           <v-text-field
             label="Select Image"
             @click="pickFile"
@@ -16,10 +19,10 @@
             ref="image"
             accept="image/*"
             @change="onFilePicked"
-          >
+          />
         </v-flex>
         <div class="buttons pa-1">
-          <input type="submit" value="Upload Image">
+          <input type="submit" value="Upload Image" />
         </div>
       </form>
     </v-container>

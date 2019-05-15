@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
   <!-- <v-app>
     <v-toolbar app>
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+// import HelloWorld from "./components/HelloWorld";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    // HelloWorld
   },
   data() {
     return {
@@ -36,7 +36,7 @@ export default {
 };
 </script>
 
- <style lang="scss">
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;

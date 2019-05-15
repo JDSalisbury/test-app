@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <Navbar/>
-    <img alt="Vue logo" src="../assets/familiar.png">
+    <Navbar />
+    <img alt="Vue logo" src="../assets/familiar.png" />
     <p>Home page</p>
-    <HelloWorld/>
+    <HelloWorld />
   </div>
 </template>
 

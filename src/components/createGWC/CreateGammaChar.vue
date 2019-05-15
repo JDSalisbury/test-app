@@ -4,49 +4,55 @@
       <h2>{{ origin1.origin }}</h2>
       <h2>{{ origin2.origin }}</h2>
       <v-btn
-        v-if="origin1.origin !== undefined "
+        v-if="origin1.origin !== undefined"
         outline
         small
         color="green"
         id="combo-1"
         @click="createThisCharacter(origin1, origin2)"
-      >Create</v-btn>
+        >Create</v-btn
+      >
     </div>
 
     <div class="col-two">
       <h2>{{ origin3.origin }}</h2>
       <h2>{{ origin4.origin }}</h2>
       <v-btn
-        v-if="origin1.origin !== undefined "
+        v-if="origin1.origin !== undefined"
         outline
         small
         color="green"
         id="combo-2"
         @click="createThisCharacter(origin3, origin4)"
-      >Create</v-btn>
+        >Create</v-btn
+      >
     </div>
 
     <div class="col-three">
       <h2>{{ origin5.origin }}</h2>
       <h2>{{ origin6.origin }}</h2>
       <v-btn
-        v-if="origin1.origin !== undefined "
+        v-if="origin1.origin !== undefined"
         outline
         small
         color="green"
         id="combo-3"
         @click="createThisCharacter(origin5, origin6)"
-      >Create</v-btn>
+        >Create</v-btn
+      >
     </div>
 
     <div class="btn">
-      <br>
+      <br />
       <v-btn
         color="blue"
         outline
         small
         @click="showChoice1(), showChoice2(), showChoice3()"
-      >{{origin1.origin === undefined ? "Gamma World" : "Spin again?"}}</v-btn>
+        >{{
+          origin1.origin === undefined ? "Gamma World" : "Spin again?"
+        }}</v-btn
+      >
     </div>
   </div>
 </template>

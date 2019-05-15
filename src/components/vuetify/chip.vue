@@ -1,7 +1,7 @@
 <template>
   <v-chip :color="color" :text-color="textColor">
-    <v-avatar :class="avatarClassColor">{{avatar}}</v-avatar>
-    {{text}}
+    <v-avatar :class="avatarClassColor">{{ avatar }}</v-avatar>
+    {{ text }}
   </v-chip>
 </template>
 
