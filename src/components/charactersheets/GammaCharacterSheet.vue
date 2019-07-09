@@ -6,8 +6,8 @@
           <div>
             <v-toolbar color="light-blue darken-3" dark>
               <v-text-field
-                persistent-hint="true"
-                :hint="originHint(char.origin1_first, char.origin2_second)"
+                persistent-hint
+                :hint="originHint(char.origin1_first, char.origin2_second).toString()"
                 class="headline"
                 v-model="char.name"
                 required
@@ -21,12 +21,7 @@
                       <ProfileImage :img="char.image" />
 
                       <v-card-actions>
-                        <v-text-field
-                          dark
-                          v-model="char.lvl"
-                          label="LVL"
-                          required
-                        ></v-text-field>
+                        <v-text-field dark v-model="char.lvl" label="LVL" required></v-text-field>
                       </v-card-actions>
                     </v-card>
                   </v-flex>
@@ -35,14 +30,10 @@
                     <v-card color="light-blue lighten-2">
                       <v-layout id="hp" row>
                         <v-flex xs4>
-                          <v-text-field
-                            required
-                            label="HP"
-                            v-model="char.hp"
-                          ></v-text-field>
+                          <v-text-field required label="HP" v-model="char.hp"></v-text-field>
                         </v-flex>
                         <v-flex xs4>
-                          <v-text-field required label="Temp"></v-text-field>
+                          <v-text-field label="Temp"></v-text-field>
                         </v-flex>
                       </v-layout>
                       <v-divider light></v-divider>
@@ -152,64 +143,46 @@
                       <v-layout class="skills">
                         <div>
                           <v-card-title>
-                            <v-card
-                              color="light-blue darken-3"
-                              class="white--text pa-2"
-                            >
+                            <v-card color="light-blue darken-3" class="white--text pa-2">
                               <h4>Skills</h4>
-                              <span v-if="char.skill1 !== ''">
-                                {{ capString(char.skill1) }}
-                              </span>
-                              <span v-if="char.skill1_mod !== 0"
-                                >{{ " " }}{{ char.skill1_mod }}</span
-                              >
+                              <span v-if="char.skill1 !== ''">{{ capString(char.skill1) }}</span>
+                              <span v-if="char.skill1_mod !== 0">{{ " " }}{{ char.skill1_mod }}</span>
                               <br />
-                              <span v-if="char.skill2 !== ''">
-                                {{ capString(char.skill2) }}
-                              </span>
-                              <span v-if="char.skill2_mod !== 0"
-                                >{{ " " }}{{ char.skill2_mod }}</span
-                              >
+                              <span v-if="char.skill2 !== ''">{{ capString(char.skill2) }}</span>
+                              <span v-if="char.skill2_mod !== 0">{{ " " }}{{ char.skill2_mod }}</span>
                               <br />
-                              <span v-if="char.skill3 !== ''">
-                                {{ capString(char.skill3) }}
-                              </span>
-                              <span v-if="char.skill3_mod !== 0"
-                                >{{ " " }}{{ char.skill3_mod }}</span
-                              >
+                              <span v-if="char.skill3 !== ''">{{ capString(char.skill3) }}</span>
+                              <span v-if="char.skill3_mod !== 0">{{ " " }}{{ char.skill3_mod }}</span>
                             </v-card>
                           </v-card-title>
                         </div>
                         <div>
                           <v-card-title>
-                            <v-card
-                              color="light-blue darken-3"
-                              class="white--text pa-2"
-                            >
+                            <v-card color="light-blue darken-3" class="white--text pa-2">
                               <h4>OverCharge</h4>
-                              <span v-if="char.overcharge_bonus1 !== ''">
-                                {{ capString(char.overcharge_bonus1) }}
-                              </span>
+                              <span
+                                v-if="char.overcharge_bonus1 !== ''"
+                              >{{ capString(char.overcharge_bonus1) }}</span>
                               <span v-if="char.overcharge_bonus1 !== ''">
                                 {{ " "
                                 }}{{
-                                  setOverChargeMod(
-                                    char.overcharge_bonus1,
-                                    char.overcharge_bonus2
-                                  )
+                                setOverChargeMod(
+                                char.overcharge_bonus1,
+                                char.overcharge_bonus2
+                                )
                                 }}
                               </span>
                               <br />
-                              <span v-if="char.overcharge_bonus2 !== ''">
-                                {{ capString(char.overcharge_bonus2) }}
-                              </span>
+                              <span
+                                v-if="char.overcharge_bonus2 !== ''"
+                              >{{ capString(char.overcharge_bonus2) }}</span>
                               <span v-if="char.overcharge_bonus2 !== ''">
                                 {{ " "
                                 }}{{
-                                  setOverChargeMod(
-                                    char.overcharge_bonus1,
-                                    char.overcharge_bonus2
-                                  )
+                                setOverChargeMod(
+                                char.overcharge_bonus1,
+                                char.overcharge_bonus2
+                                )
                                 }}
                               </span>
                             </v-card>
@@ -218,7 +191,6 @@
                       </v-layout>
                       <v-divider light></v-divider>
                       <v-card-actions class="pa-1">
-                        <UploadImage />
                         <div class="buttons pa-1">
                           <input type="submit" value="Submit" />
                         </div>
@@ -232,24 +204,16 @@
         </div>
         <v-card class="tabs">
           <div>
-            <v-tabs
-              v-model="active"
-              color="light-blue darken-3"
-              dark
-              slider-color="white"
-            >
-              <v-tab ripple :key="novice">Novice</v-tab>
-              <v-tab ripple :key="defAbilities">Defense Abilities</v-tab>
+            <v-tabs v-model="active" color="light-blue darken-3" dark slider-color="white">
+              <v-tab ripple :key="1+novice">Novice</v-tab>
+              <v-tab ripple :key="2+defAbilities">Defense Abilities</v-tab>
               <v-tab-item>
-                <v-card :key="novice" flat>
-                  <NoviceTabCard
-                    :novOne="char.novice_1"
-                    :novTwo="char.novice_2"
-                  />
+                <v-card :key="3+novice" flat>
+                  <NoviceTabCard :novOne="char.novice_1" :novTwo="char.novice_2" />
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card :key="defAbilities" flat>
+                <v-card :key="4+defAbilities" flat>
                   <DefenseTabCard
                     :def="char.defense1"
                     :defTwo="char.defense2"
@@ -291,7 +255,6 @@ import {
   setOverChargeMod,
   addToCompareTwo
 } from "../../config/config.js";
-import UploadImage from "../charactersheets/ImageUpload";
 import ProfileImage from "../charactersheets/components/ProfileImage";
 import DefenseTabCard from "../charactersheets/components/DefenseTabCard";
 import NoviceTabCard from "../charactersheets/components/NoviceAbilitiesTabCard";
@@ -304,12 +267,14 @@ export default {
     console.log(this.data);
     return {
       id: this.$route.params.id,
-      image: ""
+      image: "",
+      active: "",
+      novice: "",
+      defAbilities: ""
     };
   },
   name: "play",
   components: {
-    UploadImage,
     Chip,
     Ability,
     ProfileImage,

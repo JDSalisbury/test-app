@@ -2,10 +2,10 @@
   <v-text-field
     :label="label"
     readonly
-    persistent-hint="true"
+    persistent-hint
     type="number"
     v-model="vModel"
-    :hint="abilityMod(Number(vModel))"
+    :hint="abilityMod(Number(vModel)).toString()"
   ></v-text-field>
 </template>
 

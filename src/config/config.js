@@ -21,7 +21,9 @@ export function statsRoll() {
 }
 
 export function capString(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+  if (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 }
 
 export function abilityMod(ability) {
