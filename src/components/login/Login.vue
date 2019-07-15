@@ -72,6 +72,7 @@ export default {
         email: this.user.email,
         password: this.user.password
       };
+      this.$emit("loggedIn", true);
       this.login(data);
     }
   }

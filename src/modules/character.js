@@ -21,7 +21,6 @@ const actions = {
     await axios
       .get("http://localhost:8000/api/gammacharactersheet/", config)
       .then(response => {
-        console.log(response);
         commit("setCharacters", response.data);
       });
   },
@@ -36,7 +35,6 @@ const actions = {
     await axios
       .get(`http://localhost:8000/api/gammacharactersheet/${info.id}/`, config)
       .then(response => {
-        console.log(response);
         commit("setCharacter", response.data);
       });
   },
@@ -58,8 +56,7 @@ const actions = {
     let config = {
       headers: {
         Accept: "application/json",
-        authorization: "token " + info.key,
-        ContentType: "multipart/form-data"
+        authorization: "token " + info.key
       }
     };
     await axios
@@ -69,9 +66,8 @@ const actions = {
         config
       )
       .then(response => {
-        console.log(response);
         callBack = response;
-        commit("editCharacter", info.id);
+        commit("editCharacter", response.data);
       });
     return callBack;
   }
