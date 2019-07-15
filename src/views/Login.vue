@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <img alt="Vue logo" src="../assets/bugo.png" />
-    <Login />
+    <Login @loggedIn="loggedIn" />
   </div>
 </template>
 
@@ -13,6 +13,11 @@ export default {
   name: "login",
   components: {
     Login
+  },
+  methods: {
+    loggedIn(e) {
+      this.$emit("showNavBar", e);
+    }
   }
 };
 </script>
