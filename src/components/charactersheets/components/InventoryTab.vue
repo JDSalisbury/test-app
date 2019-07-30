@@ -25,11 +25,22 @@
     <div>
       <v-layout column align-center>
         <v-form ref="form">
-          <v-text-field v-model="name" label="Name" required></v-text-field>
-
-          <v-text-field v-model="note" label="Note" required></v-text-field>
-          <v-text-field v-model="quantity" label="Quantity" required></v-text-field>
-          <v-text-field v-model="cost" label="Cost" required></v-text-field>
+          <v-layout row>
+            <v-flex xs8>
+              <v-text-field v-model="name" label="Name" required></v-text-field>
+            </v-flex>
+            <v-flex xs8>
+              <v-text-field v-model="note" label="Note" required></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row>
+            <v-flex xs8>
+              <v-text-field v-model="quantity" label="Quantity" required></v-text-field>
+            </v-flex>
+            <v-flex xs8>
+              <v-text-field v-model="cost" label="Cost" required></v-text-field>
+            </v-flex>
+          </v-layout>
 
           <v-btn class="mr-4" @click="reset">Reset</v-btn>
           <v-btn class="mr-4" @click="send">Submit</v-btn>
@@ -89,7 +100,6 @@ export default {
           cost: this.cost
         }
       };
-      // this.char.inventory_items.push(info.data);
       this.addInventory(info);
       this.$refs.form.reset();
     }
