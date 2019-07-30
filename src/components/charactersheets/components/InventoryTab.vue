@@ -1,23 +1,44 @@
 <template>
-  <div class="table-area" v-if="char.inventory_items.length > 0">
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Note</th>
-        <th>Quantity</th>
-        <th>Cost</th>
-      </tr>
-      <tr v-for="(item, index) in char.inventory_items" :key="index">
-        <td>{{ item.name }}</td>
-        <td>{{ item.note }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.cost }}</td>
-      </tr>
-    </table>
+  <div>
+    <div>
+      <div class="table-area" v-if="char.inventory_items.length > 0">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Note</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+          </tr>
+          <tr v-for="(item, index) in char.inventory_items" :key="index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.note }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.cost }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div v-else>
+        <br />No Invetory items...
+      </div>
+    </div>
+    <div>
+      <v-layout column align-center>
+        <v-form ref="form">
+          <v-text-field v-model="name" label="Name" required></v-text-field>
+
+          <v-text-field v-model="note" label="Note" required></v-text-field>
+          <v-text-field v-model="quantity" label="Quantity" required></v-text-field>
+          <v-text-field v-model="cost" label="Cost" required></v-text-field>
+
+          <v-btn class="mr-4" @click="reset">Reset</v-btn>
+          <v-btn class="mr-4" @click="send">Submit</v-btn>
+        </v-form>
+      </v-layout>
+    </div>
   </div>
-  <div v-else><br />No Invetory items...</div>
 </template>
-<style>
+<style scope>
 .table-area {
   margin: 5px;
 }
@@ -39,9 +60,39 @@ tr:nth-child(even) {
 }
 </style>
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   props: ["char"],
-  components: {},
-  methods: {}
+  data() {
+    return {
+      name: "",
+      note: "",
+      quantity: 0,
+      cost: 0
+    };
+  },
+  computed: { ...mapGetters(["getKey"]) },
+  methods: {
+    ...mapActions(["addInventory"]),
+    reset() {
+      this.$refs.form.reset();
+    },
+    send() {
+      const info = {
+        key: this.getKey.key,
+        data: {
+          gammaCharacterSheet: this.char.id,
+          name: this.name,
+          note: this.note,
+          quantity: this.quantity,
+          cost: this.cost
+        }
+      };
+      // this.char.inventory_items.push(info.data);
+      this.addInventory(info);
+      this.$refs.form.reset();
+    }
+  }
 };
 </script>

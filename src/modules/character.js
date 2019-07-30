@@ -80,7 +80,7 @@ const actions = {
       }
     };
     await axios
-      .post(`http://localhost:8000/api/addToInventory/`, info.data, config)
+      .post(`http://localhost:8000/api/inventoryitem/`, info.data, config)
       .then(response => {
         callBack = response;
         commit("addToInventory", response.data);
@@ -97,7 +97,7 @@ const mutations = {
       characters => characters.id !== id
     )),
   editCharacter: (state, character) => (state.character = character),
-  addToInventory: (state, character) => (state.character = character)
+  addToInventory: (state, item) => state.character.inventory_items.push(item)
 };
 
 export default {
