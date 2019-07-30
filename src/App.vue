@@ -9,7 +9,6 @@
 
 <script>
 import Navbar from "@/components/navigation/Nav.vue";
-import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   components: { Navbar },

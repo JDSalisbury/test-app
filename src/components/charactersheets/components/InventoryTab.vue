@@ -15,9 +15,7 @@
       </tr>
     </table>
   </div>
-  <div v-else>
-    <br />No Invetory items...
-  </div>
+  <div v-else><br />No Invetory items...</div>
 </template>
 <style>
 .table-area {

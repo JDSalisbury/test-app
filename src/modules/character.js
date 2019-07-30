@@ -70,6 +70,22 @@ const actions = {
         commit("editCharacter", response.data);
       });
     return callBack;
+  },
+  async addInventory({ commit }, info) {
+    let callBack;
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key
+      }
+    };
+    await axios
+      .post(`http://localhost:8000/api/addToInventory/`, info.data, config)
+      .then(response => {
+        callBack = response;
+        commit("addToInventory", response.data);
+      });
+    return callBack;
   }
 };
 
@@ -80,7 +96,8 @@ const mutations = {
     (state.characters = state.characters.filter(
       characters => characters.id !== id
     )),
-  editCharacter: (state, character) => (state.character = character)
+  editCharacter: (state, character) => (state.character = character),
+  addToInventory: (state, character) => (state.character = character)
 };
 
 export default {

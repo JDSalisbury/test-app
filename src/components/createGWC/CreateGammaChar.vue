@@ -10,7 +10,8 @@
         color="green"
         id="combo-1"
         @click="createThisCharacter(origin1, origin2)"
-      >Create</v-btn>
+        >Create</v-btn
+      >
     </div>
 
     <div class="col-two">
@@ -23,7 +24,8 @@
         color="green"
         id="combo-2"
         @click="createThisCharacter(origin3, origin4)"
-      >Create</v-btn>
+        >Create</v-btn
+      >
     </div>
 
     <div class="col-three">
@@ -36,15 +38,19 @@
         color="green"
         id="combo-3"
         @click="createThisCharacter(origin5, origin6)"
-      >Create</v-btn>
+        >Create</v-btn
+      >
     </div>
 
     <div class="btn">
       <br />
-      <v-btn color="blue" outline small @click="showChoice1(), showChoice2(), showChoice3()">
-        {{
-        origin1.origin === undefined ? "Gamma World" : "Spin again?"
-        }}
+      <v-btn
+        color="blue"
+        outline
+        small
+        @click="showChoice1(), showChoice2(), showChoice3()"
+      >
+        {{ origin1.origin === undefined ? "Gamma World" : "Spin again?" }}
       </v-btn>
     </div>
   </div>
@@ -124,7 +130,9 @@ export default {
     },
     createThisCharacter(primary, secondary) {
       const confirmCreate = confirm(
-        `Are you sure you want to create the ${primary.origin} ${secondary.origin}?!`
+        `Are you sure you want to create the ${primary.origin} ${
+          secondary.origin
+        }?!`
       );
       if (confirmCreate === true) {
         let data = createCharacter(primary, secondary);
@@ -137,7 +145,9 @@ export default {
         let url = "http://localhost:8000/api/gammacharactersheet/";
         axios.post(url, data, config).then(response => {
           alert(
-            `${response.data.name} the '${response.data.origin1_first} ${response.data.origin2_second}' has been created!`
+            `${response.data.name} the '${response.data.origin1_first} ${
+              response.data.origin2_second
+            }' has been created!`
           );
         });
       }

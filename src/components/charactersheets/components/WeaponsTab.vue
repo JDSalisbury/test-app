@@ -21,9 +21,7 @@
       </tr>
     </table>
   </div>
-  <div v-else>
-    <br />No weapons...
-  </div>
+  <div v-else><br />No weapons...</div>
 </template>
 <style>
 .table-area {

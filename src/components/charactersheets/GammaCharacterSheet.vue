@@ -7,7 +7,9 @@
             <v-toolbar color="light-blue darken-3" dark>
               <v-text-field
                 persistent-hint
-                :hint="originHint(char.origin1_first, char.origin2_second).toString()"
+                :hint="
+                  originHint(char.origin1_first, char.origin2_second).toString()
+                "
                 class="headline"
                 v-model="char.name"
                 required
@@ -77,14 +79,14 @@
         <v-card class="tabs">
           <div>
             <v-tabs v-model="active" color="light-blue darken-3" dark slider-color="white">
-              <v-tab ripple :key="2+defAbilities">Defense Abilities</v-tab>
-              <v-tab ripple :key="1+novice">Novice</v-tab>
+              <v-tab ripple :key="2 + defAbilities">Defense Abilities</v-tab>
+              <v-tab ripple :key="1 + novice">Novice</v-tab>
               <v-tab ripple :key="123345">Inventory</v-tab>
               <v-tab ripple :key="323445">Gear</v-tab>
               <v-tab ripple :key="453445">Weapons</v-tab>
 
               <v-tab-item>
-                <v-card :key="4+defAbilities" flat>
+                <v-card :key="4 + defAbilities" flat>
                   <DefenseTabCard
                     :def="char.defense1"
                     :defTwo="char.defense2"
@@ -94,7 +96,7 @@
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card :key="3+novice" flat>
+                <v-card :key="3 + novice" flat>
                   <NoviceTabCard :novOne="char.novice_1" :novTwo="char.novice_2" />
                 </v-card>
               </v-tab-item>
@@ -202,6 +204,7 @@ export default {
       id: this.id
     };
     this.fetchCharacter(info);
+    console.log(this.char);
   }
 };
 </script>

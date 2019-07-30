@@ -7,12 +7,12 @@
         avatarClassColor="deep-purple darken-4"
         text="AC"
         :avatar="
-                                  addToCompareTwo(
-                                    abilityMod(char.dexterity),
-                                    abilityMod(char.intelligence),
-                                    char.ac + Number(char.lvl)
-                                  )
-                                "
+          addToCompareTwo(
+            abilityMod(char.dexterity),
+            abilityMod(char.intelligence),
+            char.ac + Number(char.lvl)
+          )
+        "
       />
       <Chip
         color="deep-purple"
@@ -20,12 +20,12 @@
         text="FORT"
         avatarClassColor="deep-purple darken-4"
         :avatar="
-                                  addToCompareTwo(
-                                    abilityMod(char.strength),
-                                    abilityMod(char.constitution),
-                                    char.fort + Number(char.lvl)
-                                  )
-                                "
+          addToCompareTwo(
+            abilityMod(char.strength),
+            abilityMod(char.constitution),
+            char.fort + Number(char.lvl)
+          )
+        "
       />
       <Chip
         color="deep-purple"
@@ -33,12 +33,12 @@
         text="REF"
         avatarClassColor="deep-purple darken-4"
         :avatar="
-                                  addToCompareTwo(
-                                    abilityMod(char.dexterity),
-                                    abilityMod(char.intelligence),
-                                    char.ref + Number(char.lvl)
-                                  )
-                                "
+          addToCompareTwo(
+            abilityMod(char.dexterity),
+            abilityMod(char.intelligence),
+            char.ref + Number(char.lvl)
+          )
+        "
       />
       <Chip
         color="deep-purple"
@@ -46,12 +46,12 @@
         text="WILL"
         avatarClassColor="deep-purple darken-4"
         :avatar="
-                                  addToCompareTwo(
-                                    abilityMod(char.wisdom),
-                                    abilityMod(char.charisma),
-                                    char.will + Number(char.lvl)
-                                  )
-                                "
+          addToCompareTwo(
+            abilityMod(char.wisdom),
+            abilityMod(char.charisma),
+            char.will + Number(char.lvl)
+          )
+        "
       />
       <Chip
         color="deep-purple"
@@ -65,10 +65,7 @@
         textColor="white"
         text="Initiative"
         avatarClassColor="deep-purple darken-4"
-        :avatar="
-                                  Number(abilityMod(char.dexterity)) +
-                                    Number(char.lvl)
-                                "
+        :avatar="Number(abilityMod(char.dexterity)) + Number(char.lvl)"
       />
     </div>
   </div>
