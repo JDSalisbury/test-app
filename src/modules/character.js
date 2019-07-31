@@ -86,6 +86,19 @@ const actions = {
         commit("addToInventory", response.data);
       });
     return callBack;
+  },
+  async deleteInventory({ commit }, info) {
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key
+      }
+    };
+    await axios.delete(
+      `http://localhost:8000/api/inventoryitem/${info.id}/`,
+      config
+    );
+    commit("removeFromInventory", info.id);
   }
 };
 
@@ -97,7 +110,11 @@ const mutations = {
       characters => characters.id !== id
     )),
   editCharacter: (state, character) => (state.character = character),
-  addToInventory: (state, item) => state.character.inventory_items.push(item)
+  addToInventory: (state, item) => state.character.inventory_items.push(item),
+  removeFromInventory: (state, id) =>
+    (state.character.inventory_items = state.character.inventory_items.filter(
+      items => items.id !== id
+    ))
 };
 
 export default {

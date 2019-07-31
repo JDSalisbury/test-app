@@ -1,5 +1,5 @@
 <template>
-  <div class="table-area" v-if="char.gear.length > 0">
+  <div class="table-area" v-if="char.gear && char.gear.length > 0">
     <table>
       <tr>
         <th>Name</th>
@@ -15,7 +15,9 @@
       </tr>
     </table>
   </div>
-  <div v-else><br />No gear...</div>
+  <div v-else>
+    <br />No gear...
+  </div>
 </template>
 <style>
 .table-area {

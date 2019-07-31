@@ -204,7 +204,6 @@ export default {
       id: this.id
     };
     this.fetchCharacter(info);
-    console.log(this.char);
   }
 };
 </script>
