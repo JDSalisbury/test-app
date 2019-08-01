@@ -15,7 +15,16 @@
             <td>{{ item.note }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.cost }}</td>
-            <v-btn @click="deleteItem(item.id)">X</v-btn>
+            <td>
+              <div class="btnDiv">
+                <v-btn @click="deleteItem(item.id)" class="btn" small color="red">
+                  <v-icon dark>delete</v-icon>
+                </v-btn>
+                <v-btn @click="editItem(item)" class="btn" small color="cyan">
+                  <v-icon dark>edit</v-icon>
+                </v-btn>
+              </div>
+            </td>
           </tr>
         </table>
       </div>
@@ -49,6 +58,10 @@
   </div>
 </template>
 <style scope>
+.btn {
+  margin-top: -8px !important;
+  margin-bottom: -8px !important;
+}
 .table-area {
   margin: 5px;
 }
@@ -79,28 +92,48 @@ export default {
       name: "",
       note: "",
       quantity: "",
-      cost: ""
+      cost: "",
+      edit: false,
+      id: ""
     };
   },
   computed: { ...mapGetters(["getKey"]) },
   methods: {
-    ...mapActions(["addInventory", "deleteInventory"]),
+    ...mapActions(["addInventory", "deleteInventory", "updateInventory"]),
     reset() {
       this.$refs.form.reset();
+      this.edit = false;
+      this.id = "";
     },
     send() {
-      const info = {
-        key: this.getKey.key,
-        data: {
-          gammaCharacterSheet: this.char.id,
-          name: this.name,
-          note: this.note,
-          quantity: this.quantity,
-          cost: this.cost
-        }
-      };
-      this.addInventory(info);
-      this.$refs.form.reset();
+      if (!this.edit) {
+        const info = {
+          key: this.getKey.key,
+          data: {
+            gammaCharacterSheet: this.char.id,
+            name: this.name,
+            note: this.note,
+            quantity: this.quantity,
+            cost: this.cost
+          }
+        };
+        this.addInventory(info);
+        this.reset();
+      } else {
+        const info = {
+          key: this.getKey.key,
+          id: this.id,
+          data: {
+            gammaCharacterSheet: this.char.id,
+            name: this.name,
+            note: this.note,
+            quantity: this.quantity,
+            cost: this.cost
+          }
+        };
+        this.updateInventory(info);
+        this.reset();
+      }
     },
     deleteItem(id) {
       const info = {
@@ -108,6 +141,14 @@ export default {
         id: id
       };
       this.deleteInventory(info);
+    },
+    editItem(item) {
+      this.id = item.id;
+      this.name = item.name;
+      this.note = item.note;
+      this.quantity = item.quantity;
+      this.cost = item.cost;
+      this.edit = true;
     }
   }
 };

@@ -99,6 +99,26 @@ const actions = {
       config
     );
     commit("removeFromInventory", info.id);
+  },
+  async updateInventory({ commit }, info) {
+    let callBack;
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key
+      }
+    };
+    await axios
+      .put(
+        `http://localhost:8000/api/inventoryitem/${info.id}/`,
+        info.data,
+        config
+      )
+      .then(response => {
+        callBack = response;
+        commit("editInventoryItem", response.data);
+      });
+    return callBack;
   }
 };
 
@@ -114,7 +134,9 @@ const mutations = {
   removeFromInventory: (state, id) =>
     (state.character.inventory_items = state.character.inventory_items.filter(
       items => items.id !== id
-    ))
+    )),
+  editInventoryItem: (state, item) =>
+    state.character.inventory_items.map(i => (i = i.id === item.id ? item : i))
 };
 
 export default {
