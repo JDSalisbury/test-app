@@ -11,17 +11,25 @@
             <th></th>
           </tr>
           <tr v-for="(item, index) in char.inventory_items" :key="index">
-            <td>{{ item.name }}</td>
-            <td>{{ item.note }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.cost }}</td>
+            <td>
+              <v-text-field v-model="item.name"></v-text-field>
+            </td>
+            <td>
+              <v-text-field v-model="item.note"></v-text-field>
+            </td>
+            <td>
+              <v-text-field v-model="item.quantity"></v-text-field>
+            </td>
+            <td>
+              <v-text-field v-model="item.cost"></v-text-field>
+            </td>
             <td>
               <div class="btnDiv">
-                <v-btn @click="deleteItem(item.id)" class="btn" small color="red">
+                <v-btn @click="deleteItem(item.id)" class="mx-2" fab dark small color="red">
                   <v-icon dark>delete</v-icon>
                 </v-btn>
-                <v-btn @click="editItem(item)" class="btn" small color="cyan">
-                  <v-icon dark>edit</v-icon>
+                <v-btn @click="editItem(item, index)" class="mx-2" fab dark small color="cyan">
+                  <v-icon dark>save</v-icon>
                 </v-btn>
               </div>
             </td>
@@ -58,12 +66,13 @@
   </div>
 </template>
 <style scope>
-.btn {
-  margin-top: -8px !important;
-  margin-bottom: -8px !important;
+.btnDiv {
+  display: flex;
+  margin: 0;
 }
+
 .table-area {
-  margin: 5px;
+  margin: 0px;
 }
 table {
   font-family: arial, sans-serif;
@@ -72,19 +81,24 @@ table {
 }
 
 td,
+.v-input {
+  margin-bottom: -17px;
+}
+
+td,
 th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 3px;
 }
 
 tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
+
 <script>
 import { mapGetters, mapActions } from "vuex";
-
 export default {
   props: ["char"],
   data() {
@@ -94,7 +108,8 @@ export default {
       quantity: "",
       cost: "",
       edit: false,
-      id: ""
+      id: "",
+      index: ""
     };
   },
   computed: { ...mapGetters(["getKey"]) },
@@ -104,36 +119,21 @@ export default {
       this.$refs.form.reset();
       this.edit = false;
       this.id = "";
+      this.index = "";
     },
     send() {
-      if (!this.edit) {
-        const info = {
-          key: this.getKey.key,
-          data: {
-            gammaCharacterSheet: this.char.id,
-            name: this.name,
-            note: this.note,
-            quantity: this.quantity,
-            cost: this.cost
-          }
-        };
-        this.addInventory(info);
-        this.reset();
-      } else {
-        const info = {
-          key: this.getKey.key,
-          id: this.id,
-          data: {
-            gammaCharacterSheet: this.char.id,
-            name: this.name,
-            note: this.note,
-            quantity: this.quantity,
-            cost: this.cost
-          }
-        };
-        this.updateInventory(info);
-        this.reset();
-      }
+      const info = {
+        key: this.getKey.key,
+        data: {
+          gammaCharacterSheet: this.char.id,
+          name: this.name,
+          note: this.note,
+          quantity: this.quantity,
+          cost: this.cost
+        }
+      };
+      this.addInventory(info);
+      this.reset();
     },
     deleteItem(id) {
       const info = {
@@ -142,13 +142,26 @@ export default {
       };
       this.deleteInventory(info);
     },
-    editItem(item) {
+    editItem(item, index) {
       this.id = item.id;
       this.name = item.name;
       this.note = item.note;
       this.quantity = item.quantity;
       this.cost = item.cost;
-      this.edit = true;
+      this.index = index;
+      const info = {
+        key: this.getKey.key,
+        id: this.id,
+        data: {
+          gammaCharacterSheet: this.char.id,
+          name: this.name,
+          note: this.note,
+          quantity: this.quantity,
+          cost: this.cost
+        }
+      };
+      this.updateInventory(info);
+      this.reset();
     }
   }
 };

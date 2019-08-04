@@ -76,9 +76,16 @@
             </v-card>
           </div>
         </div>
-        <v-card class="tabs">
+        <v-card class="tabs scroll">
           <div>
-            <v-tabs v-model="active" color="light-blue darken-3" dark slider-color="white">
+            <v-tabs
+              class="fixed-tabs-bar"
+              grow
+              v-model="active"
+              color="light-blue darken-3"
+              dark
+              slider-color="white"
+            >
               <v-tab ripple :key="2 + defAbilities">Defense Abilities</v-tab>
               <v-tab ripple :key="1 + novice">Novice</v-tab>
               <v-tab ripple :key="123345">Inventory</v-tab>
@@ -122,6 +129,17 @@
     </form>
   </div>
 </template>
+<style scope>
+.scroll {
+  overflow-y: auto;
+}
+.fixed-tabs-bar .v-tabs__bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0rem;
+  z-index: 2;
+}
+</style>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
