@@ -4,11 +4,11 @@
       <div class="table-area" v-if="char.inventory_items && char.inventory_items.length > 0">
         <table>
           <tr>
-            <th>Name</th>
-            <th>Note</th>
-            <th>Quantity</th>
-            <th>Cost</th>
-            <th></th>
+            <th style="width: 15%">Name</th>
+            <th style="width: 60%">Note</th>
+            <th style="width: 10%">Quantity</th>
+            <th style="width: 10%">Cost</th>
+            <th style="width: 5%"></th>
           </tr>
           <tr v-for="(item, index) in char.inventory_items" :key="index">
             <td>

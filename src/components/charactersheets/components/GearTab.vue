@@ -15,9 +15,7 @@
       </tr>
     </table>
   </div>
-  <div v-else>
-    <br />No gear...
-  </div>
+  <div v-else><br />No gear...</div>
 </template>
 <style>
 .table-area {
