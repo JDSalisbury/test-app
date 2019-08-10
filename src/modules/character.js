@@ -2,12 +2,16 @@ import axios from "axios";
 
 const state = {
   character: [],
-  characters: []
+  characters: [],
+  editSuccess: {
+    status: false
+  }
 };
 
 const getters = {
   allCharacters: state => state.characters,
-  char: state => state.character
+  char: state => state.character,
+  editStatus: state => state.editSuccess
 };
 
 const actions = {
@@ -101,6 +105,8 @@ const actions = {
     commit("removeFromInventory", info.id);
   },
   async updateInventory({ commit }, info) {
+    commit("editSuccess", { status: false });
+
     let callBack;
     let config = {
       headers: {
@@ -117,6 +123,14 @@ const actions = {
       .then(response => {
         callBack = response;
         commit("editInventoryItem", response.data);
+        const status = {
+          id: response.data.id,
+          status: true
+        };
+        commit("editSuccess", status);
+        setTimeout(function() {
+          commit("editSuccess", { status: false });
+        }, 2000);
       });
     return callBack;
   }
@@ -136,7 +150,8 @@ const mutations = {
       items => items.id !== id
     )),
   editInventoryItem: (state, item) =>
-    state.character.inventory_items.map(i => (i = i.id === item.id ? item : i))
+    state.character.inventory_items.map(i => (i = i.id === item.id ? item : i)),
+  editSuccess: (state, data) => (state.editSuccess = data)
 };
 
 export default {

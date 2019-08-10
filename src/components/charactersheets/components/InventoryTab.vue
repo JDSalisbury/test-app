@@ -29,7 +29,12 @@
                   <v-icon dark>delete</v-icon>
                 </v-btn>
                 <v-btn @click="editItem(item, index)" class="mx-2" fab dark small color="cyan">
-                  <v-icon dark>save</v-icon>
+                  <div v-if="editStatus.status && editStatus.id === item.id">
+                    <v-icon dark>check</v-icon>
+                  </div>
+                  <div v-else>
+                    <v-icon dark>save</v-icon>
+                  </div>
                 </v-btn>
               </div>
             </td>
@@ -58,6 +63,7 @@
               <v-text-field v-model="cost" label="Cost" required></v-text-field>
             </v-flex>
           </v-layout>
+
           <v-btn class="mr-4" @click="send">Submit</v-btn>
           <v-btn class="mr-4" @click="reset">Reset</v-btn>
         </v-form>
@@ -112,7 +118,7 @@ export default {
       index: ""
     };
   },
-  computed: { ...mapGetters(["getKey"]) },
+  computed: { ...mapGetters(["getKey", "editStatus"]) },
   methods: {
     ...mapActions(["addInventory", "deleteInventory", "updateInventory"]),
     reset() {

@@ -23,12 +23,7 @@
                       <ProfileImage :img="char.image" />
 
                       <v-card-actions>
-                        <v-text-field
-                          dark
-                          v-model="char.lvl"
-                          label="LVL"
-                          required
-                        ></v-text-field>
+                        <v-text-field dark v-model="char.lvl" label="LVL" required></v-text-field>
                       </v-card-actions>
                     </v-card>
                   </v-flex>
@@ -37,17 +32,10 @@
                     <v-card color="light-blue lighten-2">
                       <v-layout id="hp" row>
                         <v-flex xs4>
-                          <v-text-field
-                            required
-                            label="HP"
-                            v-model="char.hp"
-                          ></v-text-field>
+                          <v-text-field required label="HP" v-model="char.hp"></v-text-field>
                         </v-flex>
                         <v-flex xs4>
-                          <v-text-field
-                            v-model="char.temp"
-                            label="Temp"
-                          ></v-text-field>
+                          <v-text-field v-model="char.temp" label="Temp"></v-text-field>
                         </v-flex>
                       </v-layout>
                       <v-divider light></v-divider>
@@ -73,17 +61,10 @@
                       </v-layout>
                       <v-divider light></v-divider>
                       <div class="buttons pa-1">
-                        <input
-                          @click="showPicture"
-                          type="button"
-                          value="Change Picture"
-                        />
+                        <input @click="showPicture" type="button" value="Change Picture" />
                       </div>
                       <v-flex v-if="changePicture">
-                        <v-text-field
-                          v-model="char.image"
-                          label="Pic Url"
-                        ></v-text-field>
+                        <v-text-field v-model="char.image" label="Pic Url"></v-text-field>
                       </v-flex>
                       <div class="buttons pa-1">
                         <input type="submit" value="Submit" />
@@ -123,10 +104,7 @@
               </v-tab-item>
               <v-tab-item>
                 <v-card :key="3 + novice" flat>
-                  <NoviceTabCard
-                    :novOne="char.novice_1"
-                    :novTwo="char.novice_2"
-                  />
+                  <NoviceTabCard :novOne="char.novice_1" :novTwo="char.novice_2" />
                 </v-card>
               </v-tab-item>
               <v-tab-item>
