@@ -67,7 +67,12 @@
                         <v-text-field v-model="char.image" label="Pic Url"></v-text-field>
                       </v-flex>
                       <div class="buttons pa-1">
-                        <input type="submit" value="Submit" />
+                        <div v-if="editStatus.status && editStatus.id === char.id">
+                          <input type="submit" value="Saved!" />
+                        </div>
+                        <div v-else>
+                          <input type="submit" value="Submit" />
+                        </div>
                       </div>
                     </v-card>
                   </v-flex>
@@ -165,10 +170,6 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      image: "",
-      active: "",
-      novice: "",
-      defAbilities: "",
       changePicture: false
     };
   },
@@ -186,8 +187,7 @@ export default {
     WeaponTab
   },
   computed: {
-    ...mapGetters(["getKey"]),
-    ...mapGetters(["char"])
+    ...mapGetters(["getKey", "editStatus", "char"])
   },
   methods: {
     ...mapActions(["fetchCharacter", "updateCharacter"]),
@@ -209,7 +209,8 @@ export default {
           name: this.char.name,
           lvl: this.char.lvl,
           image: this.char.image,
-          temp: this.char.temp
+          temp: this.char.temp,
+          hp: this.char.hp
         }
       };
 

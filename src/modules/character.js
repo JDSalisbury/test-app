@@ -3,7 +3,7 @@ import axios from "axios";
 const state = {
   character: [],
   characters: [],
-  editSuccess: {
+  updateSuccess: {
     status: false
   }
 };
@@ -11,7 +11,7 @@ const state = {
 const getters = {
   allCharacters: state => state.characters,
   char: state => state.character,
-  editStatus: state => state.editSuccess
+  editStatus: state => state.updateSuccess
 };
 
 const actions = {
@@ -56,6 +56,8 @@ const actions = {
     commit("removeCharacter", info.id);
   },
   async updateCharacter({ commit }, info) {
+    commit("updateSuccess", { status: false, id: false });
+
     let callBack;
     let config = {
       headers: {
@@ -72,6 +74,14 @@ const actions = {
       .then(response => {
         callBack = response;
         commit("editCharacter", response.data);
+        const status = {
+          id: response.data.id,
+          status: true
+        };
+        commit("updateSuccess", status);
+        setTimeout(function() {
+          commit("updateSuccess", { status: false, id: false });
+        }, 2000);
       });
     return callBack;
   },
@@ -105,7 +115,7 @@ const actions = {
     commit("removeFromInventory", info.id);
   },
   async updateInventory({ commit }, info) {
-    commit("editSuccess", { status: false });
+    commit("updateSuccess", { status: false, id: 0 });
 
     let callBack;
     let config = {
@@ -127,9 +137,9 @@ const actions = {
           id: response.data.id,
           status: true
         };
-        commit("editSuccess", status);
+        commit("updateSuccess", status);
         setTimeout(function() {
-          commit("editSuccess", { status: false });
+          commit("updateSuccess", { status: false, id: 0 });
         }, 2000);
       });
     return callBack;
@@ -151,7 +161,7 @@ const mutations = {
     )),
   editInventoryItem: (state, item) =>
     state.character.inventory_items.map(i => (i = i.id === item.id ? item : i)),
-  editSuccess: (state, data) => (state.editSuccess = data)
+  updateSuccess: (state, data) => (state.updateSuccess = data)
 };
 
 export default {
