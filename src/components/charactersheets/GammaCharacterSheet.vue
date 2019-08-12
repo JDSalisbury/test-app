@@ -91,14 +91,14 @@
               dark
               slider-color="white"
             >
-              <v-tab ripple :key="2 + defAbilities">Defense Abilities</v-tab>
-              <v-tab ripple :key="1 + novice">Novice</v-tab>
-              <v-tab ripple :key="123345">Inventory</v-tab>
-              <v-tab ripple :key="323445">Gear</v-tab>
-              <v-tab ripple :key="453445">Weapons</v-tab>
+              <v-tab ripple :key="1">Defense Abilities</v-tab>
+              <v-tab ripple :key="2">Novice</v-tab>
+              <v-tab ripple :key="3">Inventory</v-tab>
+              <v-tab ripple :key="4">Gear</v-tab>
+              <v-tab ripple :key="5">Weapons</v-tab>
 
               <v-tab-item>
-                <v-card :key="4 + defAbilities" flat>
+                <v-card :key="1" flat>
                   <DefenseTabCard
                     :def="char.defense1"
                     :defTwo="char.defense2"
@@ -108,22 +108,22 @@
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card :key="3 + novice" flat>
+                <v-card :key="2" flat>
                   <NoviceTabCard :novOne="char.novice_1" :novTwo="char.novice_2" />
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card :key="123345" flat>
+                <v-card :key="3" flat>
                   <InventoryTab :char="char" />
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card :key="323445" flat>
+                <v-card :key="4" flat>
                   <GearTab :char="char" />
                 </v-card>
               </v-tab-item>
               <v-tab-item>
-                <v-card :key="453445" flat>
+                <v-card :key="5" flat>
                   <WeaponTab :char="char" />
                 </v-card>
               </v-tab-item>
