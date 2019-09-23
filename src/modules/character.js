@@ -5,13 +5,15 @@ const state = {
   characters: [],
   updateSuccess: {
     status: false
-  }
+  },
+  gearAc: 0
 };
 
 const getters = {
   allCharacters: state => state.characters,
   char: state => state.character,
-  editStatus: state => state.updateSuccess
+  editStatus: state => state.updateSuccess,
+  gearAc: state => state.gearAc
 };
 
 const actions = {
@@ -41,6 +43,11 @@ const actions = {
       .get(`http://localhost:8000/api/gammacharactersheet/${info.id}/`, config)
       .then(response => {
         commit("setCharacter", response.data);
+        let totalAc = 0;
+        response.data.gear.forEach(gear => {
+          gear.equipped && (totalAc += gear.ac_bonus);
+        });
+        commit("setGearAC", totalAc);
       });
   },
 
@@ -210,6 +217,7 @@ const actions = {
 const mutations = {
   setCharacter: (state, character) => (state.character = character),
   setCharacters: (state, characters) => (state.characters = characters),
+  setGearAC: (state, ac) => (state.gearAc = ac),
   removeCharacter: (state, id) =>
     (state.characters = state.characters.filter(
       characters => characters.id !== id

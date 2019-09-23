@@ -17,7 +17,7 @@
             <v-text-field v-model="item.note"></v-text-field>
           </td>
           <td>
-            <v-text-field v-model="item.ac_bonus"></v-text-field>
+            <v-text-field disabled v-model="item.ac_bonus"></v-text-field>
           </td>
           <td>
             <!-- <v-text-field v-model="item.equipped"></v-text-field> -->

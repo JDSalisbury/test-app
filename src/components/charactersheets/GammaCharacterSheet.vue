@@ -187,7 +187,7 @@ export default {
     WeaponTab
   },
   computed: {
-    ...mapGetters(["getKey", "editStatus", "char"])
+    ...mapGetters(["getKey", "editStatus", "char", "gearAc"])
   },
   methods: {
     ...mapActions(["fetchCharacter", "updateCharacter"]),
@@ -223,6 +223,7 @@ export default {
       id: this.id
     };
     this.fetchCharacter(info);
+    console.log(this.gearAc);
   }
 };
 </script>
