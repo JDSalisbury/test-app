@@ -28,6 +28,7 @@ const actions = {
         commit("setCharacters", response.data);
       });
   },
+
   async fetchCharacter({ commit }, info) {
     let config = {
       headers: {
@@ -42,6 +43,7 @@ const actions = {
         commit("setCharacter", response.data);
       });
   },
+
   async deleteCharacter({ commit }, info) {
     let config = {
       headers: {
@@ -55,6 +57,7 @@ const actions = {
     );
     commit("removeCharacter", info.id);
   },
+
   async updateCharacter({ commit }, info) {
     commit("updateSuccess", { status: false, id: false });
 
@@ -85,6 +88,7 @@ const actions = {
       });
     return callBack;
   },
+
   async addInventory({ commit }, info) {
     let callBack;
     let config = {
@@ -101,6 +105,7 @@ const actions = {
       });
     return callBack;
   },
+
   async deleteInventory({ commit }, info) {
     let config = {
       headers: {
@@ -114,6 +119,7 @@ const actions = {
     );
     commit("removeFromInventory", info.id);
   },
+
   async updateInventory({ commit }, info) {
     commit("updateSuccess", { status: false, id: 0 });
 
@@ -143,6 +149,61 @@ const actions = {
         }, 2000);
       });
     return callBack;
+  },
+
+  async addGear({ commit }, info) {
+    let callBack;
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key
+      }
+    };
+    await axios
+      .post(`http://localhost:8000/api/gear/`, info.data, config)
+      .then(response => {
+        callBack = response;
+        commit("addToGear", response.data);
+      });
+    return callBack;
+  },
+
+  async deleteGear({ commit }, info) {
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key
+      }
+    };
+    await axios.delete(`http://localhost:8000/api/gear/${info.id}/`, config);
+    commit("removeFromGear", info.id);
+  },
+
+  async updateGear({ commit }, info) {
+    commit("updateSuccess", { status: false, id: 0 });
+
+    let callBack;
+    let config = {
+      headers: {
+        Accept: "application/json",
+        authorization: "token " + info.key
+      }
+    };
+    await axios
+      .put(`http://localhost:8000/api/gear/${info.id}/`, info.data, config)
+      .then(response => {
+        callBack = response;
+        commit("editGearItem", response.data);
+        const status = {
+          id: response.data.id,
+          status: true
+        };
+        commit("updateSuccess", status);
+        setTimeout(function() {
+          commit("updateSuccess", { status: false, id: 0 });
+        }, 2000);
+      });
+    return callBack;
   }
 };
 
@@ -161,6 +222,13 @@ const mutations = {
     )),
   editInventoryItem: (state, item) =>
     state.character.inventory_items.map(i => (i = i.id === item.id ? item : i)),
+  addToGear: (state, item) => state.character.gear.push(item),
+  removeFromGear: (state, id) =>
+    (state.character.gear = state.character.gear.filter(
+      items => items.id !== id
+    )),
+  editGearItem: (state, item) =>
+    state.character.gear.map(i => (i = i.id === item.id ? item : i)),
   updateSuccess: (state, data) => (state.updateSuccess = data)
 };
 

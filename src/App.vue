@@ -30,6 +30,7 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -49,4 +50,10 @@ export default {
     }
   }
 }
+// @media (prefers-color-scheme: dark) {
+//   body {
+//     background-color: black;
+//     color: #ccc;
+//   }
+// }
 </style>
